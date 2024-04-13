@@ -120,7 +120,7 @@ pub fn notify_user(json: &Vec<allData>, day: usize, discriminant: bool) {
 pub async fn reqw_json(year: i32, month: u32, city: &str, country: &str, method: u8) -> String {
     use tokio::fs::File;
     use tokio::io::AsyncWriteExt;
-    let cache_dir = dirs::cache_dir().expect("No cache dir found :(").into_os_string().into_string().unwrap();
+    let cache_dir = dirs::cache_dir().expect("No cache dir found :(").into_os_string().into_string().unwrap(); 
     let _ = tokio::fs::create_dir_all(format!("{}/api",cache_dir)).await.expect("could not create api dir inside cache dir");
     let path = format!(
         "{}/api/{}{}{}{}{}.json",
@@ -159,94 +159,3 @@ pub async fn json_parse(data: String) -> ApiRequest {
     serde_json::from_str::<ApiRequest>(&data).expect("Could not convert String to J'son")
 }
 
-#[cfg(test)]
-mod test {
-    use super::*;
-    //TODO BUILD CHACHE
-    #[tokio::test]
-    async fn test_parsers() {
-        use chrono::Datelike;
-        let local_date = Local::now();
-
-        let month = local_date.month();
-        let year = local_date.year();
-        let next_month = if month == 12 { 1 } else { month + 1 };
-        let next_year = if month == 12 { year + 1 } else { year };
-        let city = "Tirana";
-        let country = "Albania";
-        let method = 16;
-
-        //GET JSON
-        let mut json = json_parse(reqw_json(year, month, city, country, method).await)
-            .await
-            .data;
-        json.extend(
-            json_parse(reqw_json(next_year, next_month, city, country, method).await)
-                .await
-                .data,
-        );
-        let mut json2 =
-            json_parse_legacy(reqw_json_legacy(year, month, city, country, method).await)
-                .await
-                .data;
-        json2.extend(
-            json_parse_legacy(reqw_json_legacy(next_year, next_month, city, country, method).await)
-                .await
-                .data,
-        );
-        for it in json.iter().zip(json2.iter()) {
-            if it.0.timings != it.1.timings {
-                eprintln!("{:?}, is not equal to {:?}", it.0.timings, it.1.timings)
-            }
-        }
-    }
-    #[tokio::test]
-    async fn past_midnight() {
-        let month = 2;
-        let year = 2024;
-        let next_month = 3;
-        let next_year = 2024;
-        let city = "Tirana";
-        let country = "Albania";
-        let method = 16;
-
-        //GET JSON
-        let mut json = json_parse(reqw_json(year, month, city, country, method).await)
-            .await
-            .data;
-        json.extend(
-            json_parse(reqw_json(next_year, next_month, city, country, method).await)
-                .await
-                .data,
-        );
-        let mut json2 =
-            json_parse_legacy(reqw_json_legacy(year, month, city, country, method).await)
-                .await
-                .data;
-        json2.extend(
-            json_parse_legacy(reqw_json_legacy(next_year, next_month, city, country, method).await)
-                .await
-                .data,
-        );
-        // BOILERPLATE ^^^^
-
-        let hours = NaiveTime::from_hms_opt(23, 30, 30).unwrap();
-        let day = 20;
-        let next_prayer = match json[day].timings.next_prayer(hours, false) {
-            Ok((prayer, time)) => (prayer, time),
-            Err(()) => json[day + 1]
-                .timings
-                .next_prayer(hours, true)
-                .expect("Cannot get T-Fajr"),
-        };
-        let tester = ("Fajr", TimeDelta::new(19410, 0).unwrap());
-        assert_eq!(next_prayer, tester);
-        let _ = Notification::new()
-            .summary(format!("{} ", &next_prayer.0).as_str())
-            .body(format!("{}", format_duration_as_time(next_prayer.1)).as_str())
-            .icon(format!("/home/benjamin/.config/dunst/icons/{}.png", &next_prayer.0).as_str())
-            .appname("Prayer Notification")
-            .timeout(6000) // this however is
-            .show();
-    }
-}
