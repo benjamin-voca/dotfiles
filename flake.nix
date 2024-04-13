@@ -9,7 +9,7 @@
     nixosConfigurations = {
       "nixos" = let
         hostname = "nixos";
-        username = "demeter";
+        username = "benjamin";
       in
       nixpkgs.lib.nixosSystem rec {
         system = "x86_64-linux";
@@ -52,7 +52,7 @@
 
     # nixos hm config
     homeConfigurations = let
-      username = "demeter";
+      username = "benjamin";
     in {
       "${username}" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
@@ -84,7 +84,7 @@
     # macos
     darwinConfigurations = {
       "macos" = let
-        username = "demeter";
+        username = "benjamin";
       in
         nix-darwin.lib.darwinSystem {
         modules = [

@@ -19,8 +19,6 @@ let
     "eza" = "eza -l --sort type --no-permissions --no-user --no-time --header --icons --no-filesize --group-directories-first";
     "tree" = "eza --tree";
     "ll" = "eza";
-    "éé" = "eza";
-    "és" = "eza";
     "l" = "eza";
     "nv" = "nvim";
     ":q" = "exit";
@@ -33,6 +31,13 @@ let
     "gr" = "git reset --soft HEAD~1";
     "f" = "fzf --preview 'bat --color=always --style=numbers --line-range=:500 {}'";
     "del" = "gio trash";
+    "battHealth" = "upower -i /org/freedesktop/UPower/devices/battery_BAT1";# | rg 'capacity'";
+    "yt" = "yt-dlp -N 5 --add-metadata -ic -f 'best[height<=1440]'+bestaudio -o '~/yt/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
+    "yts" = "yt-dlp -N 5 --add-metadata -ic -f bestvideo+bestaudio -o '~/yt/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
+    "yta" = "yt-dlp -N 5 --embed-thumbnail -f bestaudio -x --audio-format mp3 --audio-quality 320k --add-metadata -ic -o ~/Music/'%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
+    "td" = "~/.local/share/go/bin/torrent download";
+    "torrent" = "~/.local/share/go/bin/torrent ";
+    "nix-shell" = "nix-shell --run nu";
   };
 in
 {
@@ -40,6 +45,7 @@ in
 
   programs = {
     thefuck.enable = true;
+    zoxide.enableNushellIntegration = true;
 
     zsh = {
       inherit shellAliases;
@@ -72,6 +78,7 @@ in
         NIXPKGS_ALLOW_UNFREE = "1";
         NIXPKGS_ALLOW_INSECURE = "1";
         SHELL = ''"${pkgs.nushell}/bin/nu"'';
+        #NIX_BUILD_SHELL = ''"${pkgs.nushell}/bin/nu"'';
         EDITOR = config.home.sessionVariables.EDITOR;
         VISUAL = config.home.sessionVariables.VISUAL;
       };
@@ -120,6 +127,7 @@ in
       in ''
         $env.config = ${conf};
         ${completions ["cargo" "git" "nix" "npm"]}
+        source ~/.config/.zoxide.nu;
       '';
     };
   };

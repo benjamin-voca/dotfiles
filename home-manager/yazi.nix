@@ -9,5 +9,6 @@
     enable = true;
     enableNushellIntegration = true;
   };
+  programs.zoxide.enableNushellIntegration = true;
 
 }

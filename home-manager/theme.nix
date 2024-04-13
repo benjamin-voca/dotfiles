@@ -7,6 +7,7 @@ let
     "FantasqueSansMono"
     "FiraCode"
     "Mononoki"
+    "JetBrainsMono"
   ]; });
 
   theme = {
@@ -38,6 +39,7 @@ in
       iconTheme.package
       gnome.adwaita-icon-theme
       papirus-icon-theme
+      jetbrains-mono
     ];
     sessionVariables = {
       XCURSOR_THEME = cursorTheme.name;

@@ -8,15 +8,17 @@ in
   home = {
     packages = with pkgs; [
       blackbox-terminal
+      zellij
+      jetbrains-mono
       # xterm
     ];
-    sessionVariables.TERMINAL = "blackbox";
+    #sessionVariables.TERMINAL = "blackbox";
   };
 
   home.file.".local/share/blackbox/schemes/charmful.json".text = builtins.toJSON {
     name = "Charmful";
     foreground-color = "#b2b5b3";
-    background-color = "#171717";
+    background-color = "#171702";
     use-theme-colors = true;
     use-highlight-color = true;
     highlight-foreground-color = "#ffffff";
@@ -48,7 +50,7 @@ in
 
   dconf.settings."com/raggesilver/BlackBox" = {
     command-as-login-shell = true;
-    custom-shell-command = "${pkgs.tmux}/bin/tmux";
+    custom-shell-command = "${pkgs.zellij}/bin/zellij";
     use-custom-command = true;
     font = "CaskaydiaCove Nerd Font 12";
     fill-tabs = true;

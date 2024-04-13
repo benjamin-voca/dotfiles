@@ -2,8 +2,10 @@ import AccountsService from "gi://AccountsService?version=1.0"
 import GLib from "gi://GLib?version=2.0"
 import icons from "lib/icons"
 
-const { iconFile, realName, userName } = AccountsService.UserManager
-    .get_default().list_users()[0]
+//const { iconFile, realName, userName } = AccountsService.UserManager
+//  .get_default().list_users()[0]
+
+const { iconFile, realName, userName } = { iconFile: null, realName: "Benjamin", userName: "benjamin" }
 
 const loggingin = Variable(false)
 

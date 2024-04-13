@@ -7,6 +7,7 @@
     ../home-manager/bspwm.nix
     ../home-manager/dconf.nix
     ../home-manager/distrobox.nix
+    ../home-manager/foot.nix
     ../home-manager/git.nix
     ../home-manager/helix.nix
     ../home-manager/hyprland.nix
@@ -20,6 +21,8 @@
     ../home-manager/theme.nix
     ../home-manager/tmux.nix
     ../home-manager/wezterm.nix
+    ../home-manager/yazi.nix
+    ../home-manager/zellij.nix
   ];
 
   news.display = "show";
@@ -29,6 +32,7 @@
   nix.settings = {
     experimental-features = [ "nix-command" "flakes" ];
     warn-dirty = false;
+    auto-optimise-store = true;
   };
 
   home = {
@@ -72,5 +76,5 @@
   };
 
   programs.home-manager.enable = true;
-  home.stateVersion = "21.11";
+  home.stateVersion = "23.11";
 }

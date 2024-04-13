@@ -92,10 +92,10 @@
     OPTS="$CACHE/options.json"
     HOME=$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)
 
-    cp $HOME/.cache/ags/options.json $OPTS
+    cp /home/$HOME/.cache/ags/options.json $OPTS
     chown greeter:greeter $OPTS
 
-    BG=$(cat $OPTS | jq -r '.wallpaper // "$HOME/.config/background"')
+    BG=$(cat $OPTS | jq -r '.wallpaper // "/home/benjamin/.config/background"')
     cp $BG $CACHE/background
     chown greeter:greeter $CACHE/background
   '';

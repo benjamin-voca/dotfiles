@@ -1,5 +1,8 @@
 return {
     {
-        { 'akinsho/toggleterm.nvim', version = "*", opts = { --[[ things you want to change go here]] } }
+        "NvChad/nvterm",
+        config = function()
+            require("nvterm").setup()
+        end,
     }
 }

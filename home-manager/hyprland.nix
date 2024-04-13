@@ -1,16 +1,16 @@
 { inputs, pkgs, ... }:
 let
-  hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
-  plugins = inputs.hyprland-plugins.packages.${pkgs.system};
+hyprland = inputs.hyprland.packages.${pkgs.system}.hyprland;
+plugins = inputs.hyprland-plugins.packages.${pkgs.system};
 
-  yt = pkgs.writeShellScript "yt" ''
-    notify-send "Opening video" "$(wl-paste)"
-    mpv "$(wl-paste)"
-  '';
+yt = pkgs.writeShellScript "yt" ''
+notify-send "Opening video" "$(wl-paste)"
+mpv "$(wl-paste)"
+'';
 
-  playerctl = "${pkgs.playerctl}/bin/playerctl";
-  brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
-  pactl = "${pkgs.pulseaudio}/bin/pactl";
+playerctl = "${pkgs.playerctl}/bin/playerctl";
+brightnessctl = "${pkgs.brightnessctl}/bin/brightnessctl";
+pactl = "${pkgs.pulseaudio}/bin/pactl";
 in
 {
   xdg.desktopEntries."org.gnome.Settings" = {
@@ -27,18 +27,19 @@ in
     package = hyprland;
     systemd.enable = true;
     xwayland.enable = true;
-    # plugins = with plugins; [ hyprbars borderspp ];
+# plugins = with plugins; [ hyprbars borderspp ];
 
     settings = {
       exec-once = [
-        "ags -b hypr"
-        "hyprctl setcursor Qogir 24"
-        "transmission-gtk"
+          "ags -b hypr "
+          "hyprctl setcursor Qogir 24"
+          "firefox"
+          "/home/benjamin/.local/bin/prayers2"
       ];
 
       monitor = [
-        # "eDP-1, 1920x1080, 0x0, 1"
-        # "HDMI-A-1, 2560x1440, 1920x0, 1"
+# "eDP-1, 1920x1080, 0x0, 1"
+# "HDMI-A-1, 2560x1440, 1920x0, 1"
         ",preferred,auto,1"
       ];
 
@@ -54,7 +55,7 @@ in
       };
 
       input = {
-        kb_layout = "hu";
+        kb_layout = "us";
         follow_mouse = 1;
         touchpad = {
           natural_scroll = "yes";
@@ -72,7 +73,7 @@ in
       dwindle = {
         pseudotile = "yes";
         preserve_split = "yes";
-        # no_gaps_when_only = "yes";
+# no_gaps_when_only = "yes";
       };
 
       gestures = {
@@ -82,96 +83,133 @@ in
       };
 
       windowrule = let
-        f = regex: "float, ^(${regex})$";
+        f = regex: "float, ^(${regex})(.*)$";
       in [
         (f "org.gnome.Calculator")
-        (f "org.gnome.Nautilus")
-        (f "pavucontrol")
-        (f "nm-connection-editor")
-        (f "blueberry.py")
-        (f "org.gnome.Settings")
-        (f "org.gnome.design.Palette")
-        (f "Color Picker")
-        (f "xdg-desktop-portal")
-        (f "xdg-desktop-portal-gnome")
-        (f "transmission-gtk")
-        (f "com.github.Aylur.ags")
-        "workspace 7, title:Spotify"
+          #(f "org.gnome.Nautilus")
+          (f "pavucontrol")
+          (f "nm-connection-editor")
+          (f "blueberry.py")
+          (f "org.gnome.Settings")
+          (f "org.gnome.design.Palette")
+          (f "Color Picker")
+          (f "xdg-desktop-portal")
+          (f "xdg-desktop-portal-gnome")
+          (f "transmission-gtk")
+          (f "com.github.Aylur.ags")
+          (f "ViberPC")
+          "workspace 7, title:Spotify"
       ];
 
       bind = let
         binding = mod: cmd: key: arg: "${mod}, ${key}, ${cmd}, ${arg}";
-        mvfocus = binding "SUPER" "movefocus";
-        ws = binding "SUPER" "workspace";
-        resizeactive = binding "SUPER CTRL" "resizeactive";
-        mvactive = binding "SUPER ALT" "moveactive";
-        mvtows = binding "SUPER SHIFT" "movetoworkspace";
-        e = "exec, ags -b hypr";
-        arr = [1 2 3 4 5 6 7 8 9];
+      mvfocus = binding "SUPER" "movefocus";
+      ws = binding "SUPER" "workspace";
+      resizeactive = binding "SUPER CTRL" "resizeactive";
+      mvactive = binding "SUPER ALT" "moveactive";
+      mvtows = binding "SUPER SHIFT" "movetoworkspace";
+      mvtowssil = binding "SUPER ALT" "movetoworkspacesilent";
+      e = "exec, ags -b hypr";
+      sws = "togglespecialworkspace";
+      arr = [1 2 3 4 5 6 7 8 9];
       in [
-        "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
-        "SUPER, R,       ${e} -t launcher"
-        "SUPER, Tab,     ${e} -t overview"
-        ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
-        ",XF86Launch4,   ${e} -r 'recorder.start()'"
-        ",Print,         ${e} -r 'recorder.screenshot()'"
-        "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
-        "SUPER, Return, exec, xterm" # xterm is a symlink, not actually xterm
-        "SUPER, W, exec, firefox"
-        "SUPER, E, exec, wezterm -e lf"
+          "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
+          "SUPER, R,       ${e} -t launcher"
+          "SUPER, Tab,     ${e} -t overview"
+          ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
+          ",XF86Launch4,   ${e} -r 'recorder.start()'"
+          ",Print,         ${e} -r 'recorder.screenshot()'"
+          "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
+          "SUPER, Q, exec, foot ${pkgs.zellij}/bin/zellij" # xterm is a symlink, not actually xterm
+          "SUPER, W, exec, firefox"
+          "SUPER, O, exec, foot yazi"
 
-        # youtube
-        ", XF86Launch1,  exec, ${yt}"
+# youtube
+          ", XF86Launch1,  exec, ${yt}"
 
-        "ALT, Tab, focuscurrentorlast"
-        "CTRL ALT, Delete, exit"
-        "ALT, Q, killactive"
-        "SUPER, F, togglefloating"
-        "SUPER, G, fullscreen"
-        "SUPER, O, fakefullscreen"
-        "SUPER, P, togglesplit"
+          "ALT, Tab, focuscurrentorlast"
+          "CTRL ALT, Delete, exit"
+          "ALT, Q, killactive"
+          "SUPER, F, togglefloating"
+          "ALT, Return, fullscreen"
+          "ALT Control, Return, fakefullscreen"
+          "SUPER, P, togglesplit"
+          "SUPER, N, exec, neovide"
+          "Super, Super_L, exec, ags -b hypr -t launcher"
+          "SUPER, K, exec, ~/.local/bin/prayers2"
+          "SUPER, E, exec, nautilus"
 
-        (mvfocus "k" "u")
-        (mvfocus "j" "d")
-        (mvfocus "l" "r")
-        (mvfocus "h" "l")
-        (ws "left" "e-1")
-        (ws "right" "e+1")
-        (mvtows "left" "e-1")
-        (mvtows "right" "e+1")
-        (resizeactive "k" "0 -20")
-        (resizeactive "j" "0 20")
-        (resizeactive "l" "20 0")
-        (resizeactive "h" "-20 0")
-        (mvactive "k" "0 -20")
-        (mvactive "j" "0 20")
-        (mvactive "l" "20 0")
-        (mvactive "h" "-20 0")
+          "Super, S, ${sws},terminal"
+          "Super Alt, O, ${sws},yazi"
+          ", XF86Favorites,${sws},amberol"
+          "Super, A, ${sws},thunderbird"
+          "Super, X, ${sws}, pavu"
+          "Super Alt, X, ${sws}, blueman"
+          "Super, Z, ${sws},tasks"
+          "ControlSuper, S, ${sws}, termAlt"
+          "ControlSuper, A, ${sws}, thunderbirdAlt"
+          "Control Shift, Escape, ${sws}, taskManager"
+
+          (mvfocus "k" "u")
+          (mvfocus "j" "d")
+          (mvfocus "l" "r")
+          (mvfocus "h" "l")
+          (ws "left" "e-1")
+          (ws "right" "e+1")
+          (mvtows "left" "e-1")
+          (mvtows "right" "e+1")
+          (resizeactive "k" "0 -20")
+          (resizeactive "j" "0 20")
+          (resizeactive "l" "20 0")
+          (resizeactive "h" "-20 0")
+          (mvactive "k" "0 -20")
+          (mvactive "j" "0 20")
+          (mvactive "l" "20 0")
+          (mvactive "h" "-20 0")
+          ]
+          ++ (map (i: ws (toString i) (toString i)) arr)
+          ++ (map (i: mvtows (toString i) (toString i)) arr)
+          ++ (map (i: mvtowssil (toString i) (toString i)) arr);
+
+      workspace = let
+
+        special = name: cmd:  "special:${name}, on-created-empty:${cmd}";
+      in [
+          (special "terminal" "foot") 
+          (special "yazi" "foot yazi") 
+          (special "orari" "org.libreoffice.LibreOffice  ~/Documents/shkolle/Orari_Sem_2.xlsx") 
+          (special "amberol " " amberol ~/Music/") 
+          (special "monitor" "io.missioncenter.MissionCenter ") 
+          (special "tasks" "io.github.mrvladus.List") 
+          (special "thunderbird" " [fakefullscreen] org.mozilla.Thunderbird") 
+          (special "pavu" " pavucontrol") 
+          (special "blueman" " blueman-manager") 
+          (special "taskManager" " missioncenter") 
       ]
-      ++ (map (i: ws (toString i) (toString i)) arr)
-      ++ (map (i: mvtows (toString i) (toString i)) arr);
+          #++ (map (i: special (toString i) (toString i)))
+      ;
 
       bindle = [
         ",XF86MonBrightnessUp,   exec, ${brightnessctl} set +5%"
-        ",XF86MonBrightnessDown, exec, ${brightnessctl} set  5%-"
-        ",XF86KbdBrightnessUp,   exec, ${brightnessctl} -d asus::kbd_backlight set +1"
-        ",XF86KbdBrightnessDown, exec, ${brightnessctl} -d asus::kbd_backlight set  1-"
-        ",XF86AudioRaiseVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
-        ",XF86AudioLowerVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
+          ",XF86MonBrightnessDown, exec, ${brightnessctl} set  5%-"
+          ",XF86KbdBrightnessUp,   exec, ${brightnessctl} -d asus::kbd_backlight set +1"
+          ",XF86KbdBrightnessDown, exec, ${brightnessctl} -d asus::kbd_backlight set  1-"
+          ",XF86AudioRaiseVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ +5%"
+          ",XF86AudioLowerVolume,  exec, ${pactl} set-sink-volume @DEFAULT_SINK@ -5%"
       ];
 
       bindl =  [
         ",XF86AudioPlay,    exec, ${playerctl} play-pause"
-        ",XF86AudioStop,    exec, ${playerctl} pause"
-        ",XF86AudioPause,   exec, ${playerctl} pause"
-        ",XF86AudioPrev,    exec, ${playerctl} previous"
-        ",XF86AudioNext,    exec, ${playerctl} next"
-        ",XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
+          ",XF86AudioStop,    exec, ${playerctl} pause"
+          ",XF86AudioPause,   exec, ${playerctl} pause"
+          ",XF86AudioPrev,    exec, ${playerctl} previous"
+          ",XF86AudioNext,    exec, ${playerctl} next"
+          ",XF86AudioMicMute, exec, ${pactl} set-source-mute @DEFAULT_SOURCE@ toggle"
       ];
 
       bindm = [
         "SUPER, mouse:273, resizewindow"
-        "SUPER, mouse:272, movewindow"
+          "SUPER, mouse:272, movewindow"
       ];
 
       decoration = {
@@ -199,10 +237,12 @@ in
         bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
         animation = [
           "windows, 1, 5, myBezier"
-          "windowsOut, 1, 7, default, popin 80%"
-          "border, 1, 10, default"
-          "fade, 1, 7, default"
-          "workspaces, 1, 6, default"
+            "windowsOut, 1, 7, default, popin 80%"
+            "border, 1, 10, default"
+            "fade, 1, 7, default"
+            "workspaces, 1, 6, default"
+            "specialWorkspace, 1, 6, default, slidevert"
+            "layers, 1, 6, default,slide"
         ];
       };
 

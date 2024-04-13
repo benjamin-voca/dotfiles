@@ -66,6 +66,7 @@ in {
       ripgrep
       fd
       fzf
+      lazygit
     ] ++ deps;
   };
 }

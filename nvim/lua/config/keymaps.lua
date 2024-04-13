@@ -52,3 +52,12 @@ km("n", "<leader>o", function()
     vim.cmd("highlight NonText ctermbg=NONE")
 end)
 
+
+--nvterm
+km("t", "<A-i>", function() require("nvterm.terminal").toggle "float"; end)
+km("t", "<A-h>", function() require("nvterm.terminal").toggle "horizontal"; end)
+km("t", "<A-v>", function() require("nvterm.terminal").toggle "vertical"; end)
+
+km("n", "<A-i>", function() require("nvterm.terminal").toggle "float"; end)
+km("n", "<A-h>", function() require("nvterm.terminal").toggle "horizontal"; end)
+km("n", "<A-v>", function() require("nvterm.terminal").toggle "vertical"; end)

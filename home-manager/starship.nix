@@ -55,7 +55,7 @@ in
         format = "[$duration ](fg:yellow)";
       };
       nix_shell = {
-        disabled = false;
+        disabled = true;
         format = "[${pad.left}](fg:white)[ ](bg:white fg:black)[${pad.right}](fg:white) ";
       };
       container = {
