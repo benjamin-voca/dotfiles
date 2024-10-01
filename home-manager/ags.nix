@@ -1,7 +1,12 @@
-{ inputs, pkgs, asztal, ... }: {
+{
+  inputs,
+  pkgs,
+  asztal,
+  ...
+}: {
   imports = [
     inputs.ags.homeManagerModules.default
-    inputs.astal.homeManagerModules.default
+    # inputs.astal.homeManagerModules.default
   ];
 
   home.packages = with pkgs; [
@@ -23,12 +28,12 @@
     gtk3
   ];
 
-  programs.astal = {
-    enable = true;
-    extraPackages = with pkgs; [
-      libadwaita
-    ];
-  };
+  # programs.astal = {
+  #   enable = true;
+  #   extraPackages = with pkgs; [
+  #     libadwaita
+  #   ];
+  # };
 
   programs.ags = {
     enable = true;

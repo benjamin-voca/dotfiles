@@ -1,39 +1,18 @@
-{ config, ... }: {
+{ pkgs, config,inputs, ... }: {
   imports = [
-    ../home-manager/nvim.nix
     ../home-manager/ags.nix
-    ../home-manager/blackbox.nix
+    ../home-manager/anyrun.nix
     ../home-manager/browser.nix
-    ../home-manager/bspwm.nix
-    ../home-manager/dconf.nix
-    ../home-manager/distrobox.nix
-    ../home-manager/foot.nix
-    ../home-manager/git.nix
-    ../home-manager/helix.nix
-    ../home-manager/hyprland.nix
-    ../home-manager/lf.nix
-    ../home-manager/neofetch.nix
-    ../home-manager/packages.nix
-    ../home-manager/sh.nix
-    ../home-manager/starship.nix
-    ../home-manager/stm.nix
-    ../home-manager/sway.nix
+    ../home-manager/hyprland
+    ../home-manager/packages
+    ../home-manager/shell
     ../home-manager/theme.nix
-    ../home-manager/tmux.nix
     ../home-manager/wezterm.nix
-    ../home-manager/yazi.nix
-    ../home-manager/zellij.nix
   ];
 
   news.display = "show";
 
   targets.genericLinux.enable = true;
-
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    warn-dirty = false;
-    auto-optimise-store = true;
-  };
 
   home = {
     sessionVariables = {
@@ -43,10 +22,16 @@
       BAT_THEME = "base16";
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
       GOMODCACHE="${config.home.homeDirectory}/.cache/go/pkg/mod";
+      CARGO_TARGET_DIR= "${config.home.homeDirectory}/.cargo/cargo-target/";
+      PAGER = "${pkgs.bat}/bin/bat";
+      EDITOR = "${inputs.hxs.packages.x86_64-linux.default}/bin/hx";
+      GRAVEYARD = "${config.home.homeDirectory}/.local/share/Graveyard/";
     };
 
     sessionPath = [
       "$HOME/.local/bin"
+      "$HOME/.cargo/bin"
+      "${config.home.homeDirectory}/.local/share/go/bin"
     ];
   };
 
@@ -60,10 +45,8 @@
     "file://${home}/Downloads"
     "file://${home}/Desktop"
     "file://${home}/Work"
-    "file://${home}/School"
+    "file://${home}/Documents/shkolle/programim School"
     "file://${home}/Projects"
-    "file://${home}/Vault"
-    "file://${home}/Vault/School"
     "file://${home}/.config Config"
     "file://${home}/.local/share Local"
   ];
@@ -73,8 +56,13 @@
       enable = true;
       indicator = true;
     };
+    mako = {
+      enable = false;
+      anchor = "top-center";
+      layer = "overlay";
+    };
   };
 
   programs.home-manager.enable = true;
-  home.stateVersion = "23.11";
+  home.stateVersion = "24.05";
 }

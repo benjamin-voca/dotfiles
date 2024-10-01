@@ -37,7 +37,7 @@ wezterm.on("toggle-darkmode", function(window)
 end)
 
 return {
-	{ key = "p", mods = "CTRL", action = wa.EmitEvent("padding-off") },
+	-- { key = "p", mods = "CTRL", action = wa.EmitEvent("padding-off") },
 	{ key = "o", mods = "CTRL", action = wa.EmitEvent("toggle-opacity") },
 	{ key = "i", mods = "CTRL", action = wa.EmitEvent("toggle-darkmode") },
 }

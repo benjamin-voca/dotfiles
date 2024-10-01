@@ -1,11 +1,14 @@
-import AccountsService from "gi://AccountsService?version=1.0"
 import GLib from "gi://GLib?version=2.0"
 import icons from "lib/icons"
+import { bash } from "lib/utils"
 
-//const { iconFile, realName, userName } = AccountsService.UserManager
-//  .get_default().list_users()[0]
+const userName = await bash("find /home -maxdepth 1 -printf '%f\n' | tail -n 1")
+const iconFile = `/var/lib/AccountsService/icons/${userName}`
 
-const { iconFile, realName, userName } = { iconFile: null, realName: "Benjamin", userName: "benjamin" }
+// FIXME: AccountsService crashes?
+// import AccountsService from "gi://AccountsService?version=1.0"
+// const { iconFile, realName, userName } = AccountsService.UserManager
+//     .get_default().list_users()[0]
 
 const loggingin = Variable(false)
 
@@ -84,7 +87,7 @@ export default Widget.Box({
                     hpack: "center",
                     children: [
                         Widget.Icon(icons.ui.avatar),
-                        Widget.Label(realName || userName),
+                        Widget.Label(userName),
                     ],
                 }),
                 Widget.Box(

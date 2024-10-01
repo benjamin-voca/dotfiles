@@ -1,0 +1,25 @@
+default-shell "fish"
+theme "gruber-darker" {
+    colors {
+        fg [228, 228, 239]
+        bg [24, 24, 24]
+        black [0, 0, 0]
+        red [244, 56, 65]
+        green [115, 201, 54]
+        yellow [255, 221, 51]
+        blue [82, 146, 200]
+        magenta [158, 149, 199]
+        cyan [139, 233, 253]
+        white [255, 255, 255]
+        orange [204, 140, 60]
+    }
+}
+keybinds {
+	unbind "Alt o"
+	unbind "Alt n"
+	normal {
+		bind "Alt w" {ToggleFloatingPanes;};
+		bind "Alt m" {NewPane;};
+		bind "Alt x" {CloseFocus;};
+	}
+}

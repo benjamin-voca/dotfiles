@@ -2,11 +2,11 @@
 import Row from "./Row"
 import Group from "./Group"
 import Page from "./Page"
+import Wallpaper from "./Wallpaper"
 import options from "options"
 import icons from "lib/icons"
 
 const {
-    wallpaper: wp,
     autotheme: at,
     font,
     theme,
@@ -35,7 +35,7 @@ const {
 export default [
     Page("Theme", icons.ui.themes,
         Group("",
-            Row({ opt: wp, title: "Wallpaper", type: "img" }),
+            Wallpaper() as ReturnType<typeof Row>,
             Row({ opt: at, title: "Auto Generate Color Scheme" }),
             Row({ opt: scheme, title: "Color Scheme", type: "enum", enums: ["dark", "light"] }),
         ),
@@ -76,6 +76,7 @@ export default [
     ),
     Page("Bar", icons.ui.toolbars,
         Group("General",
+            Row({ opt: b.transparent, title: "Transparent Bar", note: "Works best on empty-ish wallpapers" }),
             Row({ opt: b.flatButtons, title: "Flat Buttons" }),
             Row({ opt: b.position, title: "Position", type: "enum", enums: ["top", "bottom"] }),
             Row({ opt: b.corners, title: "Corners" }),
@@ -117,6 +118,7 @@ export default [
     Page("General", icons.ui.settings,
         Group("Hyprland",
             Row({ opt: h.gapsWhenOnly, title: "Gaps When Only" }),
+            Row({ opt: h.inactiveBorder, type: "color", title: "Inactive Border Color" }),
         ),
         Group("Launcher",
             Row({ opt: l.width, title: "Width" }),

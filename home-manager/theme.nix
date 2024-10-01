@@ -15,7 +15,7 @@ let
     package = pkgs.adw-gtk3;
   };
   font = {
-    name = "Ubuntu Nerd Font";
+    name = "JetBrainsMono Nerd Font";
     package = nerdfonts;
   };
   cursorTheme = {
@@ -37,7 +37,7 @@ in
       font.package
       cursorTheme.package
       iconTheme.package
-      gnome.adwaita-icon-theme
+      adwaita-icon-theme
       papirus-icon-theme
       jetbrains-mono
     ];

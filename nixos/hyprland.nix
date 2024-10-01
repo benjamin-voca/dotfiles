@@ -1,4 +1,10 @@
-{ pkgs, inputs, config, asztal, ... }: {
+{
+  pkgs,
+  inputs,
+  # config,
+  # asztal,
+  ...
+}: {
   services.xserver.displayManager.startx.enable = true;
 
   programs.hyprland = {
@@ -19,20 +25,20 @@
     pam.services.ags = {};
   };
 
-  environment.systemPackages = with pkgs; with gnome; [
-    gnome.adwaita-icon-theme
-    loupe
+  environment.systemPackages = with pkgs;
+  [
+    # gnome.loupe
     adwaita-icon-theme
     nautilus
     baobab
-    gnome-text-editor
-    gnome-calendar
-    gnome-boxes
-    gnome-system-monitor
-    gnome-control-center
-    gnome-weather
-    gnome-calculator
-    gnome-clocks
+    # gnome-text-editor
+    # gnome-calendar
+    # gnome-boxes
+    # gnome-system-monitor
+    # gnome-control-center
+    # gnome-weather
+    # gnome-calculator
+    # gnome-clocks
     gnome-software # for flatpak
     wl-gammactl
     wl-clipboard
@@ -40,14 +46,17 @@
     pavucontrol
     brightnessctl
     swww
+    jq
+    hyprshot
+    tesseract
   ];
 
   systemd = {
     user.services.polkit-gnome-authentication-agent-1 = {
       description = "polkit-gnome-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         Type = "simple";
         ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
@@ -73,30 +82,35 @@
     };
   };
 
+
   services.greetd = {
     enable = true;
-    settings.default_session.command = pkgs.writeShellScript "greeter" ''
-      export XKB_DEFAULT_LAYOUT=${config.services.xserver.xkb.layout}
-      export XCURSOR_THEME=Qogir
-      ${asztal}/bin/greeter
-    '';
+    settings = {
+      initial_session = {
+        command = "${pkgs.hyprland}/bin/Hyprland";
+        user = "benjamin";
+      };
+      default_session = {
+        command = " ${pkgs.greetd.tuigreet}/bin/tuigreet --greeting 'Welcome to NixOS!' --asterisks --remember --remember-user-session --time -cmd ${pkgs.hyprland}/bin/Hyprland";
+        user = "greeter";
+      };
+    };
   };
-
   systemd.tmpfiles.rules = [
     "d '/var/cache/greeter' - greeter greeter - -"
   ];
 
   system.activationScripts.wallpaper = ''
-    PATH=$PATH:${pkgs.busybox}/bin:${pkgs.jq}/bin
+    PATH=$PATH:${pkgs.coreutils}/bin:${pkgs.jq}/bin
     CACHE="/var/cache/greeter"
     OPTS="$CACHE/options.json"
-    HOME=$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)
+    HOME="/home/$(find /home -maxdepth 1 -printf '%f\n' | tail -n 1)"
 
-    cp /home/$HOME/.cache/ags/options.json $OPTS
-    chown greeter:greeter $OPTS
+    cp /home/benjamin/.cache/ags/options.json /var/cache/greeter/options.json
+    chown greeter:greeter /var/cache/greeter/options.json
 
-    BG=$(cat $OPTS | jq -r '.wallpaper // "/home/benjamin/.config/background"')
-    cp $BG $CACHE/background
-    chown greeter:greeter $CACHE/background
+    BG=$(cat /var/cache/greeter/options.json | jq -r '.wallpaper // "/home/benjamin/.config/background"')
+    cp $BG /var/cache/greeter/background
+    chown greeter:greeter /var/cache/greeter/background
   '';
 }

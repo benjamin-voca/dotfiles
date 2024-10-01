@@ -1,4 +1,4 @@
-local bg = "#171717"
+local bg = "#181818"
 local fg = "#b2b5b3"
 local bright_bg = "#373839"
 local bright_fg = "#e7e7e7"

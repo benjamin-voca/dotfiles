@@ -1,9 +1,14 @@
 {
-  description = "Configurations of Aylur";
+  description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self, home-manager, nix-darwin, nixpkgs, ... }: {
-    packages.x86_64-linux.default =
-      nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags {inherit inputs;};
+  outputs = inputs@{ self,anyrun, chaotic, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
+
+        packages.x86_64-linux = {
+          hxs = hxs.packages.x86_64-linux.default;
+          default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags { inherit inputs; };
+        };
+  # Use the prayers flake as a package
+  #packages.prayers = prayers.packages.x86_64-linux.default;
 
     # nixos config
     nixosConfigurations = {
@@ -16,10 +21,13 @@
         specialArgs = {
           inherit inputs;
           asztal = self.packages.x86_64-linux.default;
+          # prayers = prayers.packages.x86_64-linux.default;
         };
         modules = [
           ./nixos/nixos.nix
           home-manager.nixosModules.home-manager
+          chaotic.nixosModules.default
+
           {
             users.users.${username} = {
               isNormalUser = true;
@@ -53,63 +61,38 @@
     # nixos hm config
     homeConfigurations = let
       username = "benjamin";
+      system = "x86_64-linux";
     in {
       "${username}" = home-manager.lib.homeManagerConfiguration {
         pkgs = import nixpkgs {
-          system = "x86_64-linux";
+          system = "${system}";
           config.allowUnfree = true;
         };
         extraSpecialArgs = {
           inherit inputs;
-          asztal = self.packages.x86_64-linux.default;
+          asztal = self.packages.${system}.default;
+          # prayers = prayers.packages.${system}.default;
         };
+        imports = [nixvim.HomeManagerModules.nixvim];
         modules = [
           ./nixos/home.nix
-          ({ pkgs, ... }: {
+          hyprlock.homeManagerModules.hyprlock
+          anyrun.homeManagerModules.default
+            ({ pkgs, ... }: {
             nix.package = pkgs.nix;
             home = {
               packages = [(pkgs.writeShellScriptBin "hm" ''
                 ${./symlink.nu} -r
                 home-manager switch --flake .
                 ${./symlink.nu} -a
-              '')];
+              '')
+              inputs.nixvim.packages.${system}.default
+              ];
+
               username = username;
               homeDirectory = "/home/${username}";
             };
           })
-        ];
-      };
-    };
-
-    # macos
-    darwinConfigurations = {
-      "macos" = let
-        username = "benjamin";
-      in
-        nix-darwin.lib.darwinSystem {
-        modules = [
-          ./macos/macos.nix
-          home-manager.darwinModules.home-manager
-          {
-            users.users.${username} = {
-              name = username;
-              home = "/Users/${username}";
-            };
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = { inherit inputs; };
-              users."${username}" = {
-                home.username = username;
-                home.homeDirectory = "/Users/${username}";
-                imports = [./macos/home.nix];
-              };
-            };
-            networking = {
-              hostName = "macos";
-              computerName = "macos";
-            };
-          }
         ];
       };
     };
@@ -118,31 +101,62 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    anyrun = {
+      url = "github:anyrun-org/anyrun";
+      inputs.nixpkgs.follows = "nixpkgs";    
+    };
+    chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-darwin = {
-      url = "github:LnL7/nix-darwin";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     hyprland.url = "github:hyprwm/Hyprland";
+    hyprlock={
+      url = "github:hyprwm/Hyprlock";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #hyprlang.follows = "hyprland.hyprlang";
+    };
+    hyprpaper={
+      url = "github:hyprwm/hyprpaper";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #hyprlang.follows = "hyprland.hyprlang";
+    };
+    hyprpicker={
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #hyprlang.follows = "hyprland.hyprlang";
+    };
+    hypridle={
+      url = "github:hyprwm/hypridle";
+      inputs.nixpkgs.follows = "nixpkgs";
+      #hyprlang.follows = "hyprland.hyprlang";
+    };
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
 
-    matugen.url = "github:InioX/matugen";
+    matugen.url = "github:InioX/matugen?ref=v2.2.0";
     ags.url = "github:Aylur/ags";
-    astal.url = "github:Aylur/astal";
-    stm.url = "github:Aylur/stm";
+    # astal.url = "github:Aylur/astal";
 
-    lf-icons = {
-      url = "github:gokcehan/lf";
-      flake = false;
-    };
+
+
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
+    };
+    # prayers = {
+    #     url = "./prayers";
+    #     flake = true;
+    # };
+    hxs = {
+        url = "/home/benjamin/repos/rrrr/new/helix";
+        flake = true;
+    };
+    nixvim = {
+        url = "github:nix-community/nixvim";
+        inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 }
