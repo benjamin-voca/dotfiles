@@ -37,7 +37,6 @@ in
           "systemctl restart pipewire --user"
           "firefox"
           "prayers -d"
-          "systemctl stop jellyfin.service"
           "batteryNotify &"
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
@@ -138,7 +137,7 @@ in
           ",XF86Launch4,   ${e} -r 'recorder.start()'"
           ",Print,         ${e} -r 'recorder.screenshot()'"
           "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
-          "SUPER, Q, exec, wezterm start zellij & & " # xterm is a symlink, not actually xterm
+          "SUPER, Q, exec, wezterm start --always-new-process -- zellij" # xterm is a symlink, not actually xterm
           "SUPER Alt, Q, exec,  wezterm start --always-new-process -- ${pkgs.zellij}/bin/zellij --layout welcome" # xterm is a symlink, not actually xterm
           "SUPER, W, exec, firefox"
           "SUPER Control, W, exec, firefox --private-window"
@@ -205,16 +204,16 @@ in
 
         special = name: cmd:  "special:${name}, on-created-empty:${cmd}";
       in [
-          (special "terminal" "wezterm start zellij &") 
+          (special "terminal" "wezterm start --always-new-process -- zellij") 
           (special "yazi" " wezterm start --always-new-process -- yazi") 
           (special "orari" "org.libreoffice.LibreOffice  ~/Documents/shkolle/Orari_Sem_2.xlsx") 
           (special "amberol " " amberol ~/Music/") 
-          (special "monitor" "io.missioncenter.MissionCenter ") 
+          (special "monitor" "wezterm start --always-new-process -- btop &") 
           (special "tasks" "io.github.mrvladus.List") 
           (special "thunderbird" " [fakefullscreen] org.mozilla.Thunderbird") 
           (special "pavu" " pavucontrol") 
           (special "blueman" " blueman-manager") 
-          (special "taskManager" " missioncenter") 
+          (special "taskManager" "wezterm start --always-new-process -- btop &") 
       ]
           #++ (map (i: special (toString i) (toString i)))
       ;

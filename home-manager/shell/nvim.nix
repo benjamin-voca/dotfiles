@@ -67,7 +67,7 @@ in {
       wget
       curl
       tree-sitter
-      ripgrep
+      ripgrep-all
       fd
       fzf
       lazygit

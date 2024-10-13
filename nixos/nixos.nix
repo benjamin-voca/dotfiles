@@ -43,16 +43,13 @@
 # packages
   environment.systemPackages = with pkgs; [
       devenv
-      jellyfin
-      jellyfin-web
-      jellyfin-ffmpeg      
       home-manager
       neovim
       git
       wget
       wget2
       yazi
-      ripgrep
+      ripgrep-all
       btop
       psmisc ##fuser
       nh
@@ -76,10 +73,6 @@
     #   openFirewall = true;
     # };
     
-    jellyfin = {
-      enable = true;
-      openFirewall = true;
-    };
     ananicy = {
       enable = true;
       rulesProvider = pkgs.ananicy-rules-cachyos;

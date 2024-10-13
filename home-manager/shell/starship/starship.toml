@@ -1,89 +1,123 @@
+# Gruber-Darker colors
+[character]
+success_symbol = "❯(bold #ffdd33)"
+error_symbol = "❯(bold #f43841)"
+
 [aws]
 symbol = "  "
+style = "bold #ffdd33"  # light yellow
 
 [buf]
 symbol = " "
+style = "bold #f43841"  # red
 
 [c]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [conda]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [crystal]
 symbol = " "
+style = "bold #f43841"  # red
 
 [dart]
 symbol = " "
+style = "bold #73c936"  # green
 
 [directory]
 read_only = " 󰌾"
+style = "bold #ffdd33"  # light yellow
 
 [docker_context]
 symbol = " "
+style = "bold #73c936"  # green
 
 [elixir]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [elm]
 symbol = " "
+style = "bold #73c936"  # green
 
 [fennel]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [fossil_branch]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [git_branch]
 symbol = " "
+style = "bold #ffdd33"  # light yellow
 
 [golang]
 symbol = " "
+style = "bold #73c936"  # green
 
 [guix_shell]
 symbol = " "
+style = "bold #f43841"  # red
 
 [haskell]
 symbol = " "
+style = "bold #ffdd33"  # light yellow
 
 [haxe]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [hg_branch]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [hostname]
 ssh_symbol = " "
+style = "bold #f43841"  # red
 
 [java]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [julia]
 symbol = " "
+style = "bold #73c936"  # green
 
 [kotlin]
 symbol = " "
+style = "bold #ffdd33"  # light yellow
 
 [lua]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [memory_usage]
 symbol = "󰍛 "
+style = "bold #f43841"  # red
 
 [meson]
 symbol = "󰔷 "
+style = "bold #96a6c8"  # light blue
 
 [nim]
 symbol = "󰆥 "
+style = "bold #73c936"  # green
 
 [nix_shell]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [nodejs]
 symbol = " "
+style = "bold #ffdd33"  # light yellow
 
 [ocaml]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [os.symbols]
 Alpaquita = " "
@@ -132,33 +166,44 @@ Windows = "󰍲 "
 
 [package]
 symbol = "󰏗 "
+style = "bold #ffdd33"  # light yellow
 
 [perl]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [php]
 symbol = " "
+style = "bold #f43841"  # red
 
 [pijul_channel]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [python]
 symbol = " "
+style = "bold #73c936"  # green
 
 [rlang]
 symbol = "󰟔 "
+style = "bold #ffdd33"  # light yellow
 
 [ruby]
 symbol = " "
+style = "bold #f43841"  # red
 
 [rust]
-symbol = " "
+symbol = "󱘗 "
+style = "bold #ffdd33"  # light yellow
 
 [scala]
 symbol = " "
+style = "bold #96a6c8"  # light blue
 
 [swift]
 symbol = " "
+style = "bold #f43841"  # red
 
 [zig]
 symbol = " "
+style = "bold #73c936"  # green

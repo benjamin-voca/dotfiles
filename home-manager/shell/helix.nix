@@ -81,6 +81,7 @@
           C-q = ":bclose";
           A-j = "goto_next_buffer";
           A-k = "goto_previous_buffer";
+          A-d = [ "extend_to_line_bounds" "yank" "paste_after" ];
         };
       };
 

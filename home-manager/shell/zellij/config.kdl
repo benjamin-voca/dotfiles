@@ -3,7 +3,7 @@ theme "gruber-darker"
 themes{
 	gruber-darker {
 	    fg 228 228 239
-	    bg 24 24 24
+	    bg 64 64 64
 	    black 0 0 0
 	    red 244 56 65
 	    green 115 201 54

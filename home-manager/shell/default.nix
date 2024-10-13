@@ -36,13 +36,13 @@ let
     "ol" = "ouch l";
     "b" = "broot";
     "xo" = "xdg-open";
-    "fixJellyfishPermissions" = "chmod 777 ~; chmod 777 ~/dwhelper; chmod 777 ~/Downloads; chmod 777 ~/Downloads/.prv";
     "d" = "devenv";
     # "nxe" = "hx $FLAKE";
     "lsPkgs" = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort | uniq";
-    "orari" = ''nix-shell -p uv --run "cd ~/scripts/ && uv run tabela.py"'';
+    "orari" = "/home/benjamin/scripts/tabela.py";
     "dwSite" = "wget2 --max-threads=16 --mirror --convert-links --adjust-extension --page-requisites --no-parent --domains= ";
     "hxs" = "nix run ~/repos/rrrr/new/helix";
+    "rg" = "rga";
   };
   in
 {
@@ -70,6 +70,7 @@ let
         any-nix-shell fish --info-right | source
         nh completions --shell fish | source
         set fish_greeting
+        nb todo
 
         fish_vi_key_bindings
 
@@ -136,7 +137,7 @@ let
         #alias tsh 'sudo -E timeshift-launcher'
         #alias tshc 'sudo timeshift --create'
         alias si 'sudo intel_gpu_top'
-        alias grep 'rg'
+        alias grep 'rga'
         alias ct 'cargo-tauri'
         alias sssd 'sudo systemctl start docker'
         alias ys 'yarn start'

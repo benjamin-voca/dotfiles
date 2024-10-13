@@ -1,6 +1,6 @@
 let
   email = "benjaminvocaa@gmail.com";
-  name = "Bennnniiii";
+  name = "benjamin-voca";
 in {
   programs.git = {
     enable = true;
