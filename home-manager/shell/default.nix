@@ -48,6 +48,8 @@ let
 {
   #./nvim.nix 
   imports = [ ./zellij ./direnv.nix ./distrobox.nix ./git.nix ./helix.nix ./yazi.nix ./starship];
+  #btop custom theme
+  home.file.".config/btop/themes/gruber-darker.theme".source = ./gruber-darker.theme;
 
   programs = {
     zoxide = {
