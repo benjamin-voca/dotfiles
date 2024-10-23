@@ -37,5 +37,25 @@ return {
     keys = require("keys"),
 
     audible_bell = "Disabled",
-    harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' }
+    harfbuzz_features = { 'calt=1', 'clig=1', 'liga=1' },
+
+    -- Enable clickable links
+    hyperlink_rules = {
+        -- This is the default rule for recognizing HTTP and HTTPS URLs.
+        {
+            regex = "\\b\\w+://[\\w.-]+\\S*\\b",
+            format = "$0",
+        },
+        -- This is a slightly more aggressive match for things like
+        -- foo.com/bar, without a protocol
+        {
+            regex = "\\b\\w+\\.[a-z]{2,3}\\S*\\b",
+            format = "http://$0",
+        },
+        -- Recognize email addresses
+        {
+            regex = "\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b",
+            format = "mailto:$0",
+        },
+    },
 }

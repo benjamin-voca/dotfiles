@@ -70,8 +70,8 @@ in
         follow_mouse = 1;
         touchpad = {
           natural_scroll = "yes";
-          disable_while_typing = true;
           drag_lock = true;
+          disable_while_typing = false;
         };
         sensitivity = 0;
         float_switch_override_focus = 2;

@@ -22,6 +22,13 @@ imports = [
         type="Application";
         mimeType=["image/png" "image/jpeg" "image/jpg" "image/gif" "image/bmp" "image/webp" "image/tiff" "image/x-icon" "image/svg+xml"];
     };
+    "Krunker" = {
+        name="Krunker";
+        exec="/home/benjamin/scripts/setup.AppImage";
+        icon="/home/benjamin/scripts/krunker.png";
+        terminal=false;
+        type="Application";
+    };
   };
 
   home.packages = with pkgs;  [

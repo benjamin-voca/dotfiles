@@ -23,6 +23,16 @@
   security = {
     polkit.enable = true;
     pam.services.ags = {};
+
+    sudo.extraRules = [
+      {
+        users = [ "benjamin" ];
+        commands = [{
+          command = "${pkgs.btop}/bin/btop";
+          options = [ "NOPASSWD" ];
+        }];
+      }
+    ];
   };
 
   environment.systemPackages = with pkgs;
