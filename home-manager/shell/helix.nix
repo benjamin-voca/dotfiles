@@ -1,8 +1,33 @@
-{ pkgs, inputs,  ... }: {
-  programs.helix = {
+{ pkgs, inputs, ... }:
+let
+  # Define a wrapped version of Helix with the necessary language servers and tools.
+  hxs = pkgs.runCommand "hxs"
+    {
+      buildInputs = with pkgs; [
+        inputs.hxs.packages.x86_64-linux.default # Original `hxs` package
+        vscode-langservers-extracted
+        gopls
+        gotools
+        typescript
+        typescript-language-server
+        marksman
+        nil
+        nixpkgs-fmt
+        clang-tools
+        lua-language-server
+        rust-analyzer
+        bash-language-server
+        lldb
+        # souffle-lsp  # Add souffle-lsp for Datalog support
+      ];
+    } ''
+    mkdir -p $out/bin
+    ln -s ${inputs.hxs.packages.x86_64-linux.default}/bin/hx $out/bin/hxs
+  '';
+
+  sharedHelixConfig = {
     enable = true;
     package = inputs.hxs.packages.x86_64-linux.default;
-
     extraPackages = with pkgs; with nodePackages; [
       vscode-langservers-extracted
       gopls
@@ -17,6 +42,7 @@
       rust-analyzer
       bash-language-server
       lldb
+      # souffle-lsp  # Add souffle-lsp here as well
     ];
 
     languages = {
@@ -55,9 +81,13 @@
           };
         }
         {
+          name = "rust";
+          lsp = { command = "rust-analyzer"; args = [ "--check" "clippy" ]; };
+        }
+        {
           name = "scheme";
-          scope = "source.scm"; # Assuming Steel uses Scheme scope
-          file-types = ["scm"]; # Assuming Steel uses ".scm" extension
+          scope = "source.scm";
+          file-types = [ "scm" ];
           auto-format = true;
           formatter = {
             command = "raco";
@@ -65,11 +95,26 @@
           };
           language-servers = [ "steel-language-server" ];
         }
+        {
+          name = "datalog"; # Add Datalog language configuration
+          scope = "source.dl"; # Adjust the scope for Datalog files
+          file-types = [ "dl" ];
+          language-servers = [ "souffle-lsp" ]; # Specify the language server for Datalog
+        }
       ];
       language-server = {
         steel-language-server = {
           command = "steel-language-server";
-          args = [];
+          args = [ ];
+        };
+        souffle-lsp = {
+          command = "souffle-lsp"; # Ensure the command for souffle-lsp is specified
+          args = [ ];
+        };
+
+
+        rust-analyzer = {
+          checkOnSave.command = "clippy";
         };
       };
     };
@@ -128,4 +173,9 @@
       };
     };
   };
+in
+{
+  programs.helix = sharedHelixConfig;
+
+  home.packages = [ hxs ];
 }

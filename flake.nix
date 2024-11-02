@@ -153,7 +153,7 @@
     hxs = {
         url = "/home/benjamin/repos/rrrr/new/helix";
         flake = true;
-    };
+      };
     nixvim = {
         url = "github:nix-community/nixvim";
         inputs.nixpkgs.follows = "nixpkgs";

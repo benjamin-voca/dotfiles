@@ -62,6 +62,7 @@ imports = [
     blueman
     mount-zip
     parallel
+    lazygit
     tealdeer
     bat
     eza
