@@ -81,10 +81,6 @@ let
           };
         }
         {
-          name = "rust";
-          lsp = { command = "rust-analyzer"; args = [ "--check" "clippy" ]; };
-        }
-        {
           name = "scheme";
           scope = "source.scm";
           file-types = [ "scm" ];
@@ -114,7 +110,7 @@ let
 
 
         rust-analyzer = {
-          checkOnSave.command = "clippy";
+          check.command = "clippy";
         };
       };
     };
