@@ -421,7 +421,7 @@
       },
       "locked": {
         "lastModified": 1729661681,
-        "narHash": "sha256-vExdTy1ZCKPPPSN7hnHyFNhHRvqLjwhtYsoQZkV1RLA=",
+        "narHash": "sha256-aWrRtBY60CLDdkVgNAa2lKRORhATPrB3r5HO/max3qk=",
         "ref": "refs/heads/steel-event-system",
         "rev": "29ce6fffda1854fbe224fd657b6eac52187dad36",
         "revCount": 6087,

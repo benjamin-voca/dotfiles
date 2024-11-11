@@ -20,7 +20,7 @@ let
     "battHealth" = "upower -i /org/freedesktop/UPower/devices/battery_BAT1";# | rg 'capacity'";
     "yt" = "yt-dlp -N 8 --add-metadata -ic -f 'best[height<=1440]'+bestaudio -o '~/yt/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
     "yts" = "yt-dlp -N 8 --add-metadata -ic -f bestvideo+bestaudio -o '~/yt/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
-    "yta" = "yt-dlp -N 8 --embed-thumbnail -f bestaudio -x --audio-format flac --audio-quality 0 --add-metadata -ic -o ~/Music/'%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
+    "yta" = "yt-dlp -N 8 --embed-thumbnail -f bestaudio -x --audio-quality 0 --add-metadata -ic -o ~/Music/'%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s'";
     "td" = "~/.local/share/go/bin/torrent download";
     "torrent" = "~/.local/share/go/bin/torrent ";
     #"nix-shell" = "nom-shell --run fish";

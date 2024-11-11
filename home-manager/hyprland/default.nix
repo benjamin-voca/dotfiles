@@ -35,7 +35,8 @@ in
           "ags -b hypr"
           "hyprctl setcursor Qogir 24"
           "systemctl restart pipewire --user"
-          "firefox"
+          # "firefox"
+          "flatpak run  io.github.zen_browser.zen"
           "prayers -d"
           "batteryNotify &"
           "wl-paste --type text --watch cliphist store"
@@ -110,6 +111,7 @@ in
           (f "com.github.Aylur.ags")
           (f "ViberPC")
           (g "noblur" "firefox")
+          (g "noblur" "zen")
           (g "noblur" "discord")
           "float,title:^(ViberPC)(.*)$"
       ];
@@ -139,8 +141,9 @@ in
           "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
           "SUPER, Q, exec, wezterm start --always-new-process -- zellij" # xterm is a symlink, not actually xterm
           "SUPER Alt, Q, exec,  wezterm start --always-new-process -- ${pkgs.zellij}/bin/zellij --layout welcome" # xterm is a symlink, not actually xterm
-          "SUPER, W, exec, firefox"
-          "SUPER Control, W, exec, firefox --private-window"
+          # "SUPER, W, exec, firefox"
+          "SUPER, W, exec, flatpak run io.github.zen_browser.zen"
+          "SUPER Control, W, exec, flatpak run  io.github.zen_browser.zen --private-window"
           "SUPER, O, exec, wezterm start --always-new-process -- yazi"
           "Control SUPER, O, exec, wezterm start --always-new-process -- broot"
           ''ControlSuperShift,S,exec,grim -g "$(slurp -d)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"''

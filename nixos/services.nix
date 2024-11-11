@@ -14,5 +14,13 @@
         PermitRootLogin = "prohibit-password"; # "yes", "without-password", "prohibit-password", "forced-commands-only", "no"
       };
     };
+
+    xserver = {
+      enable = true;
+      # driSupport = true;
+      # driSupportVersion = "2"; # or "3"
+      videoDrivers = [ "intel" ];
+
+    };
   };
 }
