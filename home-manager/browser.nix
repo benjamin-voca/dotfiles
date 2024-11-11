@@ -1,7 +1,7 @@
 { inputs, ... }:
 {
   home = {
-    sessionVariables.BROWSER = "firefox";
+    sessionVariables.BROWSER = "zen-alpha";
 
     file."firefox-gnome-theme" = {
       target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
