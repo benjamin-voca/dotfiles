@@ -40,6 +40,7 @@
                 "video"
                 "libvirtd"
                 "docker"
+                "uinput"
               ];
             };
             networking.hostName = hostname;
