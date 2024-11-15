@@ -38,6 +38,7 @@ imports = [
     (mpv.override { scripts = [mpvScripts.mpris]; })
     libreoffice
     amberol
+    pywalfox-native
 
     #langs
     d-spy
