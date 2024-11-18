@@ -45,6 +45,15 @@ in {
       terminal = false;
       mimeType = [ "application/pdf" ];
     };
+    desktopEntries."bottles" = ifLinux {
+      name = "Bottles";
+      comment = "Bottles";
+      icon = "usebottles.bottles.com";
+      exec = "flatpak run com.usebottles.bottles -b Gaming --run";
+      categories = [ "Application" ];
+      terminal = false;
+      mimeType = [ "application/vnd.microsoft.portable-executable" ];
+    };
   };
 
 

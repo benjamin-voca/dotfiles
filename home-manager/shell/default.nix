@@ -34,7 +34,6 @@ let
     "oc" = "ouch c";
 
     "ol" = "ouch l";
-    "b" = "broot";
     "xo" = "xdg-open";
     "d" = "devenv";
     # "nxe" = "hx $FLAKE";

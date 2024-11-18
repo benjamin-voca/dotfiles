@@ -29,6 +29,12 @@ imports = [
         terminal=false;
         type="Application";
     };
+    "Vampire Survivors" = {
+        name="Vampire Survivors";
+        exec="/home/benjamin/games/Games/Vampire.Survivors.v1.12.107/Vampire.Survivors.v1.12.107/Vampire Survivors.exe";
+        icon="/home/benjamin/scripts/vamp.jpeg";
+        terminal=false;
+    };
   };
 
   home.packages = with pkgs;  [
@@ -47,6 +53,8 @@ imports = [
     # teams-for-linux
     fastfetch
     calcurse
+    #cli
+    xlsx2csv
 
     #NB
     nb

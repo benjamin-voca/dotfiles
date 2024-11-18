@@ -145,7 +145,6 @@ in
           "SUPER, W, exec, flatpak run io.github.zen_browser.zen"
           "SUPER Control, W, exec, flatpak run  io.github.zen_browser.zen --private-window"
           "SUPER, O, exec, wezterm start --always-new-process -- yazi"
-          "Control SUPER, O, exec, wezterm start --always-new-process -- broot"
           ''ControlSuperShift,S,exec,grim -g "$(slurp -d)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"''
           "SuperShift,S,exec, fish -c 'grim -g (slurp) - | satty -f -' "
           "SuperShiftAlt,S,exec, fish -c 'grim - | satty -f -' "
