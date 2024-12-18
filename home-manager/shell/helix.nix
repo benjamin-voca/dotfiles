@@ -5,12 +5,14 @@ let
     {
       buildInputs = with pkgs; [
         inputs.hxs.packages.x86_64-linux.default # Original `hxs` package
-        vscode-langservers-extracted
+        # vscode-langservers-extracted
+        superhtml
         gopls
         gotools
         typescript
         typescript-language-server
         marksman
+        markdown-oxide
         nil
         nixpkgs-fmt
         clang-tools
@@ -29,12 +31,14 @@ let
     enable = true;
     package = inputs.hxs.packages.x86_64-linux.default;
     extraPackages = with pkgs; with nodePackages; [
-      vscode-langservers-extracted
+      # vscode-langservers-extracted
+      superhtml
       gopls
       gotools
       typescript
       typescript-language-server
       marksman
+      markdown-oxide
       nil
       nixpkgs-fmt
       clang-tools
@@ -97,8 +101,31 @@ let
           file-types = [ "dl" ];
           language-servers = [ "souffle-lsp" ]; # Specify the language server for Datalog
         }
+        {
+
+          name = "roc";
+          scope = "source.roc";
+          injection-regex = "roc";
+          file-types = [ "roc" ];
+          shebangs = [ "roc" ];
+          roots = [ ];
+          comment-token = "#";
+          language-servers = [ "roc-ls" ];
+          indent = { tab-width = 2; unit = "  "; };
+          auto-format = true;
+          formatter = { command = "roc"; args = [ "format" "--stdin" "--stdout" ]; };
+        }
       ];
+      grammar = {
+        name = "roc";
+        source = { git = "https://github.com/faldor20/tree-sitter-roc.git"; rev = "ef46edd0c03ea30a22f7e92bc68628fb7231dc8a"; };
+      };
+
       language-server = {
+
+        roc-ls = {
+          command = "roc_language_server";
+        };
         steel-language-server = {
           command = "steel-language-server";
           args = [ ];
@@ -166,6 +193,7 @@ let
           render = true;
           character = "┊";
         };
+        auto-pairs = { "(" = ")"; "{" = "}"; "[" = "]"; };
       };
     };
   };

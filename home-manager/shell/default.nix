@@ -42,6 +42,7 @@ let
     "dwSite" = "wget2 --max-threads=16 --mirror --convert-links --adjust-extension --page-requisites --no-parent --domains= ";
     "hxs" = "nix run ~/repos/rrrr/new/helix";
     "rg" = "rga";
+    "j" = "just";
   };
   in
 {
@@ -68,6 +69,7 @@ let
       interactiveShellInit = ''
         any-nix-shell fish --info-right | source
         nh completions --shell fish | source
+        rg --generate=complete-fish | source
         set fish_greeting
         nb todo
 

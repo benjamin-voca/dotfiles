@@ -34,7 +34,7 @@ in {
       exec = "xterm -e ${pkgs.neovim}/bin/nvim %F";
       categories = [ "TerminalEmulator" ];
       terminal = false;
-      mimeType = [ "text/plain" ];
+      # mimeType = [ "text/plain" ];
     };
     desktopEntries."firefox" = ifLinux {
       name = "Firefox";
@@ -43,7 +43,6 @@ in {
       exec = "firefox";
       categories = [ "WebBrowser" ];
       terminal = false;
-      mimeType = [ "application/pdf" ];
     };
     desktopEntries."bottles" = ifLinux {
       name = "Bottles";

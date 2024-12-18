@@ -31,3 +31,15 @@ end
 function ytpa
     ./ytpar -a $argv[1]
 end
+
+function da
+    # Check if a container with the given name exists
+    if docker ps -a --format '{{.Names}}' | grep -q "^$argv[1]"
+        echo "Container '$argv[1]' already exists. Removing it..."
+        docker rm -f $argv[1]
+    end
+
+    # Run the container with the provided arguments
+    echo "Starting container '$argv[1]'..."
+    docker run --name $argv[1] $argv[2..-1]
+end

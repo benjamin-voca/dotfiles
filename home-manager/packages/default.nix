@@ -1,4 +1,5 @@
 { pkgs, ... }:
+let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --bottle Gaming -e ";in
 {
 imports = [
     ./scripts/blocks.nix
@@ -11,8 +12,8 @@ imports = [
   xdg.desktopEntries = {
     "Balatro" = {
         name = "Balatro";
-        exec = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --bottle gameeeeeeeeeeeeee -e /home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro.exe";
-        icon = "/home/benjamin/games/Games/Balatro.v1.0.0F/Balatro.v1.0.0F/Balatro OST/Thumbnail.png";
+        exec = "${btl_cmd} /home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro.exe";
+        icon = "/home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro OST/Thumbnail.png";
     };
     "Satty" = {
         name="Satty";
@@ -31,9 +32,15 @@ imports = [
     };
     "Vampire Survivors" = {
         name="Vampire Survivors";
-        exec="/home/benjamin/games/Games/Vampire.Survivors.v1.12.107/Vampire.Survivors.v1.12.107/Vampire Survivors.exe";
+        exec="${btl_cmd} /home/benjamin/games/Games/Vampire.Survivors.v1.12.107/Vampire.Survivors.v1.12.107/Vampire Survivors.exe";
         icon="/home/benjamin/scripts/vamp.jpeg";
         terminal=false;
+    };
+    "Hades 2" = {
+        name = "Hades 2";
+        exec = "${btl_cmd} /home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/Hades2.exe";
+        icon = "/home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/game.ico";
+        terminal = false;
     };
   };
 
@@ -55,6 +62,7 @@ imports = [
     calcurse
     #cli
     xlsx2csv
+    just
 
     #NB
     nb

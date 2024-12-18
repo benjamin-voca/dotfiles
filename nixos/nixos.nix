@@ -6,60 +6,64 @@
     ./locale.nix
     # ./gnome.nix
     ./hyprland.nix
-# ./laptop.nix
+    # ./laptop.nix
     ./services.nix
   ];
-#default shell
+  #default shell
   programs.fish.enable = true;
   users.users.benjamin.shell = pkgs.fish;
 
-# nix
+  # nix
   documentation.nixos.enable = false; # .desktop
-    nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-      trusted-users = ["benjamin"];
-      experimental-features = "nix-command flakes";
+  nixpkgs.config.allowUnfree = true;
+  nix = {
+    settings = {
+      trusted-users = [ "benjamin" ];
+      experimental-features = "nix-command flakes pipe-operators";
       auto-optimise-store = true;
-      extra-substituters = ["https://hyprland.cachix.org" "https://nyx.chaotic.cx/" "https://anyrun.cachix.org" ];
-      extra-trusted-public-keys = [ "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc=" "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8=" 
-      "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s=" ];
+      extra-substituters = [ "https://hyprland.cachix.org" "https://nyx.chaotic.cx/" "https://anyrun.cachix.org" ];
+      extra-trusted-public-keys = [
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
+        "chaotic-nyx.cachix.org-1:HfnXSw4pj95iI/n17rIDy40agHj12WfF+Gqk6SonIT8="
+        "anyrun.cachix.org-1:pqBobmOjI7nKlsUMV25u9QHa9btJK65/C8vnO3p346s="
+      ];
       warn-dirty = false;
     };
-
-# camera
+  };
+  # camera
   programs.droidcam.enable = true;
 
-# virtualisation
+  # virtualisation
   programs.virt-manager.enable = true;
   virtualisation = {
     podman.enable = false;
-#docker.enable = true;
-#libvirtd.enable = true;
+    #docker.enable = true;
+    #libvirtd.enable = true;
   };
 
-# dconf
+  # dconf
   programs.dconf.enable = true;
 
-# packages
+  # packages
   environment.systemPackages = with pkgs; [
-      devenv
-      home-manager
-      neovim
-      git
-      wget
-      wget2
-      yazi
-      ripgrep-all
-      btop
-      psmisc ##fuser
-      nh
-      nix-output-monitor
-      nvd
-      dust
-      scx
+    devenv
+    home-manager
+    neovim
+    git
+    wget
+    wget2
+    yazi
+    ripgrep-all
+    btop
+    psmisc ##fuser
+    nh
+    nix-output-monitor
+    nvd
+    dust
+    scx
   ];
 
-# services
+  # services
   services = {
     xserver = {
       enable = true;
@@ -72,7 +76,7 @@
     #   enable = true;
     #   openFirewall = true;
     # };
-    
+
     ananicy = {
       enable = true;
       rulesProvider = pkgs.ananicy-rules-cachyos;
@@ -83,12 +87,12 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-# If you want to use JACK applications, uncomment this
+      # If you want to use JACK applications, uncomment this
       jack.enable = true;
 
-# use the example session manager (no others are packaged yet so this is enabled by default,
-# no need to redefine it in your config for now)
-#media-session.enable = true;
+      # use the example session manager (no others are packaged yet so this is enabled by default,
+      # no need to redefine it in your config for now)
+      #media-session.enable = true;
     };
     fwupd.enable = true;
     mysql = {
@@ -99,40 +103,40 @@
   programs.steam = {
     enable = false;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   };
-  zramSwap= {
+  zramSwap = {
     enable = true;
     algorithm = "zstd";
   };
 
-# logind
+  # logind
   services.logind.extraConfig = ''
     HandlePowerKey=ignore
     HandleLidSwitch=suspend
     HandleLidSwitchExternalPower=ignore
-    '';
+  '';
 
-# kde connect
+  # kde connect
   networking.firewall = rec {
     allowedTCPPortRanges = [{ from = 1714; to = 1764; }];
     allowedUDPPortRanges = allowedTCPPortRanges;
   };
 
-# network
+  # network
   networking.networkmanager.enable = true;
 
-# bluetooth
+  # bluetooth
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = false;
     settings.General.Experimental = true; # for gnome-bluetooth percentage
   };
 
-# bootloader
+  # bootloader
   boot = {
     consoleLogLevel = 0;
-    tmp = { 
+    tmp = {
       cleanOnBoot = true;
       tmpfsSize = "20%";
       useTmpfs = true;
@@ -154,17 +158,19 @@
     };
     plymouth = rec {
       enable = false;
-# black_hud circle_hud cross_hud square_hud
-# circuit connect cuts_alt seal_2 seal_3
+      # black_hud circle_hud cross_hud square_hud
+      # circuit connect cuts_alt seal_2 seal_3
       theme = "lone";
-      themePackages = with pkgs; [(
+      themePackages = with pkgs; [
+        (
           adi1090x-plymouth-themes.override {
-          selected_themes = [ theme ];
+            selected_themes = [ theme ];
           }
-          )];
+        )
+      ];
     };
 
-#appimage support
+    #appimage support
     binfmt.registrations.appimage = {
       wrapInterpreterInShell = false;
       interpreter = "${pkgs.appimage-run}/bin/appimage-run";
@@ -180,22 +186,22 @@
   hardware.graphics = {
     enable = true;
     extraPackages = with pkgs; [
-        intel-media-driver # LIBVA_DRIVER_NAME=iHD
-        intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
-        vaapiVdpau
-        libvdpau-va-gl
+      intel-media-driver # LIBVA_DRIVER_NAME=iHD
+      intel-vaapi-driver # LIBVA_DRIVER_NAME=i965 (older but works better for Firefox/Chromium)
+      vaapiVdpau
+      libvdpau-va-gl
     ];
   };
-  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; FLAKE="/home/benjamin/repos/dotfiles"; }; # Force intel-media-driver
+  environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; FLAKE = "/home/benjamin/repos/dotfiles"; }; # Force intel-media-driver
 
-    programs.nix-ld = {
-      enable = true;
-      libraries = with pkgs; [
-          libcxx
-          clang-tools_17
-          llvmPackages_17.libstdcxxClang
-      ];
-    };
+  programs.nix-ld = {
+    enable = true;
+    libraries = with pkgs; [
+      libcxx
+      clang-tools_17
+      llvmPackages_17.libstdcxxClang
+    ];
+  };
 
   console = {
     earlySetup = true;

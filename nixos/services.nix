@@ -1,8 +1,24 @@
 { pkgs, ... }: {
+
+  #shutdown as normal user
+  environment.etc."polkit-1/rules.d/50-shutdown.rules".text = ''
+    polkit.addRule(function(action, subject) {
+      if (action.id == "org.freedesktop.login1.reboot" ||
+          action.id == "org.freedesktop.login1.power-off" ||
+          action.id == "org.freedesktop.login1.suspend" ||
+          action.id == "org.freedesktop.login1.hibernate") {
+        return subject.isInGroup("wheel") ? polkit.Result.YES : polkit.Result.NO;
+      }
+    });
+  '';
+  security = {
+    polkit.enable = true;
+  };
   services = {
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
     '';
+
     openssh = {
       enable = true;
       ports = [ 22 ];

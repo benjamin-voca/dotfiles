@@ -37,8 +37,10 @@
   xdg = {
     mimeApps = {
       defaultApplications = {
-        "x-scheme-handler/http" = "io.github.zen_browser.zen.desktop";
-        "x-scheme-handler/https" = "io.github.zen_browser.zen.desktop";
+        "x-scheme-handler/http" = "io.github.zen_browser.zen";
+        "x-scheme-handler/https" = "io.github.zen_browser.zen";
+        "x-www-browser"="io.github.zen_browser.zen";
+        "application/pdf" ="io.github.zen_browser.zen";
       };
     };
   };
