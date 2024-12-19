@@ -43,3 +43,8 @@ function da
     echo "Starting container '$argv[1]'..."
     docker run --name $argv[1] $argv[2..-1]
 end
+
+function invertPdf
+    nix run nixpkgs#ghostscript -- -o "$argv[1]_dark".pdf -sDEVICE=pdfwrite \
+        -c "{1 exch sub} settransfer" -f $argv[1].pdf
+end
