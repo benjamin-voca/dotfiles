@@ -43,6 +43,7 @@ let
     "hxs" = "nix run ~/repos/rrrr/new/helix";
     "rg" = "rga";
     "j" = "just";
+    "lg" = "lazygit";
   };
   in
 {
