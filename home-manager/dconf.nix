@@ -131,7 +131,7 @@
     };
 
     "com/github/stunkymonkey/nautilus-open-any-terminal" = {
-      terminal = "wezterm";
+      terminal = "ghostty";
     };
 
     "org/virt-manager/virt-manager/connections" = {

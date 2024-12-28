@@ -1,7 +1,7 @@
 {
   description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self,anyrun, chaotic, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
+  outputs = inputs@{ self,anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
 
         packages.x86_64-linux = {
           hxs = hxs.packages.x86_64-linux.default;
@@ -158,6 +158,9 @@
     nixvim = {
         url = "github:nix-community/nixvim";
         inputs.nixpkgs.follows = "nixpkgs";
+    };
+    ghostty = {
+          url = "github:ghostty-org/ghostty";
     };
   };
 }

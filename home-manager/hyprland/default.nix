@@ -139,12 +139,12 @@ in
           ",XF86Launch4,   ${e} -r 'recorder.start()'"
           ",Print,         ${e} -r 'recorder.screenshot()'"
           "SHIFT,Print,    ${e} -r 'recorder.screenshot(true)'"
-          "SUPER, Q, exec, wezterm start --always-new-process -- zellij" # xterm is a symlink, not actually xterm
-          "SUPER Alt, Q, exec,  wezterm start --always-new-process -- ${pkgs.zellij}/bin/zellij --layout welcome" # xterm is a symlink, not actually xterm
+          "SUPER, Q, exec, ghostty" # xterm is a symlink, not actually xterm
+          # "SUPER Alt, Q, exec,  ghostty" # xterm is a symlink, not actually xterm
           # "SUPER, W, exec, firefox"
           "SUPER, W, exec, flatpak run io.github.zen_browser.zen"
           "SUPER Control, W, exec, flatpak run  io.github.zen_browser.zen --private-window"
-          "SUPER, O, exec, wezterm start --always-new-process -- yazi"
+          "SUPER, O, exec, ghostty -e yazi"
           ''ControlSuperShift,S,exec,grim -g "$(slurp -d)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"''
           "SuperShift,S,exec, fish -c 'grim -g (slurp) - | satty -f -' "
           "SuperShiftAlt,S,exec, fish -c 'grim - | satty -f -' "
@@ -161,7 +161,7 @@ in
           # "ALT Control, Return, fakefullscreen"
           "SUPER, P, togglesplit"
           "SUPER, N, exec, neovide"
-          "SUPER Alt, N, exec, wezterm start --always-new-process -- hx "
+          "SUPER Alt, N, exec, ghostty -e hx "
           "Super, Super_L, exec, ags -b hypr -t launcher || anyrun"
           "SUPER, K, exec, ~/scripts/prayers.fish"
           "SUPER, E, exec, nautilus"
@@ -206,16 +206,16 @@ in
 
         special = name: cmd:  "special:${name}, on-created-empty:${cmd}";
       in [
-          (special "terminal" "wezterm start --always-new-process -- zellij") 
-          (special "yazi" " wezterm start --always-new-process -- yazi") 
+          (special "terminal" "ghostty") 
+          (special "yazi" " ghostty -e yazi") 
           (special "orari" "org.libreoffice.LibreOffice  ~/Documents/shkolle/Orari_Sem_2.xlsx") 
           (special "amberol " " amberol ~/Music/") 
-          (special "monitor" "wezterm start --always-new-process -- btop &") 
+          (special "monitor" "ghostty -e btop &") 
           (special "tasks" "io.github.mrvladus.List") 
           (special "thunderbird" " [fakefullscreen] org.mozilla.Thunderbird") 
           (special "pavu" " pavucontrol") 
           (special "blueman" " blueman-manager") 
-          (special "taskManager" "wezterm start --always-new-process -- btop &") 
+          (special "taskManager" "ghostty -e btop &") 
       ]
           #++ (map (i: special (toString i) (toString i)))
       ;

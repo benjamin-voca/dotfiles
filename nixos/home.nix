@@ -8,6 +8,7 @@
     ../home-manager/shell
     ../home-manager/theme.nix
     ../home-manager/wezterm.nix
+    # ../home-manager/ghostty.nix
   ];
 
   news.display = "show";

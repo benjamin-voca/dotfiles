@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --bottle Gaming -e ";in
 {
 imports = [
@@ -45,7 +45,9 @@ imports = [
   };
 
   home.packages = with pkgs;  [
-   
+
+    inputs.ghostty.packages.x86_64-linux.default  
+
     # gui
     # obsidian
     (mpv.override { scripts = [mpvScripts.mpris]; })
