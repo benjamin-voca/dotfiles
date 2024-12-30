@@ -44,6 +44,7 @@ let
     "rg" = "rga";
     "j" = "just";
     "lg" = "lazygit";
+    "envEcho" = "echo 'use flake' > .envrc; direnv allow";
   };
   in
 {

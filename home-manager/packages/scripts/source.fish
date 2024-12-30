@@ -48,3 +48,11 @@ function invertPdf
     nix run nixpkgs#ghostscript -- -o "$argv[1]_dark".pdf -sDEVICE=pdfwrite \
         -c "{1 exch sub} settransfer" -f $argv[1].pdf
 end
+
+function append_rg
+    # Append "| rg" to the current command line
+    commandline -a " | rg"
+end
+
+# Bind Alt + r to the append_rg function
+bind \er append_rg
