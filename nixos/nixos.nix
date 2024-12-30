@@ -124,7 +124,14 @@
   };
 
   # network
-  networking.networkmanager.enable = true;
+  networking.networkmanager = {
+    # settings = {
+    #   device = {
+    #     "wifi.scan-rand-mac-address"="no";
+    #   };
+    # };
+    enable = true;
+  };
 
   # bluetooth
   hardware.bluetooth = {

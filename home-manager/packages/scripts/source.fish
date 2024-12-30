@@ -54,5 +54,6 @@ function append_rg
     commandline -a " | rg"
 end
 
+bind --erase --preset \er
 # Bind Alt + r to the append_rg function
 bind \er append_rg
