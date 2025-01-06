@@ -103,7 +103,7 @@ let
 
         function killOnLocalPort
             set port $argv[1]
-            sudo kill -9 (lsof -t -i:$port -sTCP:LISTEN)
+            sudo kill -9 (nix run nixpkgs#lsof -- -t -i:$port -sTCP:LISTEN)
         end
 
         function battHealth

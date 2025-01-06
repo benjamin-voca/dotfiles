@@ -57,3 +57,9 @@ end
 bind --erase --preset \er
 # Bind Alt + r to the append_rg function
 bind \er append_rg
+
+function fp
+    git add .
+    git commit -m $argv[1]
+    git push
+end
