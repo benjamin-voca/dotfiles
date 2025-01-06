@@ -29,7 +29,7 @@ let
 
   sharedHelixConfig = {
     enable = true;
-    package = inputs.hxs.packages.x86_64-linux.default;
+    # package = inputs.hxs.packages.x86_64-linux.default;
     extraPackages = with pkgs; with nodePackages; [
       # vscode-langservers-extracted
       superhtml
