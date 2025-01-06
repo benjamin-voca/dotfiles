@@ -35,8 +35,6 @@
       enable = true;
       # driSupport = true;
       # driSupportVersion = "2"; # or "3"
-      videoDrivers = [ "intel" ];
-
     };
     kanata = {
       enable = true;

@@ -60,7 +60,6 @@
     nix-output-monitor
     nvd
     dust
-    scx
   ];
 
   # services

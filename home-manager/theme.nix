@@ -9,13 +9,14 @@ let
   #   "Mononoki"
   #   "JetBrainsMono"
   # ]; });
+  nf = pkgs.nerd-fonts;
   theme = {
     name = "adw-gtk3-dark";
     package = pkgs.adw-gtk3;
   };
   font = {
     name = "JetBrainsMono Nerd Font";
-    package = pkgs.nerdfonts;
+    package = nf.jetbrains-mono;
   };
   cursorTheme = {
     name = "Qogir";
