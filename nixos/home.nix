@@ -1,6 +1,6 @@
 { config, inputs, ... }: {
   imports = [
-    ../home-manager/ags.nix
+    # ../home-manager/ags.nix
     ../home-manager/anyrun.nix
     ../home-manager/browser.nix
     ../home-manager/hyprland
@@ -25,7 +25,7 @@
       GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
       CARGO_TARGET_DIR = "${config.home.homeDirectory}/.cargo/cargo-target/";
       PAGER = "/usr/bin/env bat";
-      EDITOR = "${inputs.hxs.packages.x86_64-linux.default}/bin/hx";
+      EDITOR = "/usr/bin/env hx";
       GRAVEYARD = "${config.home.homeDirectory}/.local/share/Graveyard/";
     };
 

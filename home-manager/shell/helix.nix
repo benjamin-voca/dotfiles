@@ -153,9 +153,14 @@ let
         };
       };
 
-      theme = "gruber-darker";
+      theme = "adwaita-dark";
 
       editor = {
+        end-of-line-diagnostics = "hint";
+
+        inline-diagnostics = {
+          cursor-line = "error";
+        };
         lsp = {
           display-messages = true;
           display-inlay-hints = true;

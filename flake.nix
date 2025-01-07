@@ -1,102 +1,109 @@
 {
   description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self,anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
+  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, user-shell, ... }: {
 
-        packages.x86_64-linux = {
-          hxs = hxs.packages.x86_64-linux.default;
-          default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags { inherit inputs; };
-        };
-  # Use the prayers flake as a package
-  #packages.prayers = prayers.packages.x86_64-linux.default;
+    packages.x86_64-linux = {
+      hxs = hxs.packages.x86_64-linux.default;
+      user-shell = user-shell.packages.x86_64-linux.default; # Add `my-shell`.
+      # default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags { inherit inputs; };
+    };
+    # Use the prayers flake as a package
+    #packages.prayers = prayers.packages.x86_64-linux.default;
 
     # nixos config
     nixosConfigurations = {
-      "nixos" = let
-        hostname = "nixos";
-        username = "benjamin";
-      in
-      nixpkgs.lib.nixosSystem rec {
-        system = "x86_64-linux";
-        specialArgs = {
-          inherit inputs;
-          asztal = self.packages.x86_64-linux.default;
-          # prayers = prayers.packages.x86_64-linux.default;
-        };
-        modules = [
-          ./nixos/nixos.nix
-          home-manager.nixosModules.home-manager
-          chaotic.nixosModules.default
+      "nixos" =
+        let
+          hostname = "nixos";
+          username = "benjamin";
+        in
+        nixpkgs.lib.nixosSystem rec {
+          system = "x86_64-linux";
+          specialArgs = {
+            inherit inputs;
+            asztal = self.packages.x86_64-linux.default;
+            user-shell = self.packages.x86_64-linux.default;
 
-          {
-            users.users.${username} = {
-              isNormalUser = true;
-              initialPassword = username;
-              extraGroups = [
-                "nixosvmtest"
-                "networkmanager"
-                "wheel"
-                "audio"
-                "video"
-                "libvirtd"
-                "docker"
-                "uinput"
-              ];
-            };
-            networking.hostName = hostname;
-            home-manager = {
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              extraSpecialArgs = specialArgs;
-              users.${username} = {
-                home.username = username;
-                home.homeDirectory = "/home/${username}";
-                imports = [./nixos/home.nix];
+            # prayers = prayers.packages.x86_64-linux.default;
+          };
+          modules = [
+            ./nixos/nixos.nix
+            home-manager.nixosModules.home-manager
+            chaotic.nixosModules.default
+
+            {
+              users.users.${username} = {
+                isNormalUser = true;
+                initialPassword = username;
+                extraGroups = [
+                  "nixosvmtest"
+                  "networkmanager"
+                  "wheel"
+                  "audio"
+                  "video"
+                  "libvirtd"
+                  "docker"
+                  "uinput"
+                ];
               };
-            };
-          }
-        ];
-      };
+              networking.hostName = hostname;
+              home-manager = {
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                extraSpecialArgs = specialArgs;
+                users.${username} = {
+                  home.username = username;
+                  home.homeDirectory = "/home/${username}";
+                  imports = [ ./nixos/home.nix ];
+                };
+              };
+            }
+          ];
+        };
     };
 
     # nixos hm config
-    homeConfigurations = let
-      username = "benjamin";
-      system = "x86_64-linux";
-    in {
-      "${username}" = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = "${system}";
-          config.allowUnfree = true;
-        };
-        extraSpecialArgs = {
-          inherit inputs;
-          asztal = self.packages.${system}.default;
-          # prayers = prayers.packages.${system}.default;
-        };
-        imports = [nixvim.HomeManagerModules.nixvim];
-        modules = [
-          ./nixos/home.nix
-          hyprlock.homeManagerModules.hyprlock
-          anyrun.homeManagerModules.default
+    homeConfigurations =
+      let
+        username = "benjamin";
+        system = "x86_64-linux";
+      in
+      {
+        "${username}" = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "${system}";
+            config.allowUnfree = true;
+          };
+          extraSpecialArgs = {
+            inherit inputs;
+            asztal = self.packages.${system}.default;
+            # prayers = prayers.packages.${system}.default;
+          };
+          imports = [ nixvim.HomeManagerModules.nixvim ];
+          modules = [
+            ./nixos/home.nix
+            hyprlock.homeManagerModules.hyprlock
+            anyrun.homeManagerModules.default
             ({ pkgs, ... }: {
-            nix.package = pkgs.nix;
-            home = {
-              packages = [(pkgs.writeShellScriptBin "hm" ''
-                ${./symlink.nu} -r
-                home-manager switch --flake .
-                ${./symlink.nu} -a
-              '')
-              inputs.nixvim.packages.${system}.default
-              ];
+              nix.package = pkgs.nix;
+              home = {
+                packages = [
+                  (pkgs.writeShellScriptBin "hm" ''
+                    ${./symlink.nu} -r
+                    home-manager switch --flake .
+                    ${./symlink.nu} -a
+                  '')
+                  inputs.nixvim.packages.${system}.default
+                ];
 
-              username = username;
-              homeDirectory = "/home/${username}";
-            };
-          })
-        ];
+                username = username;
+                homeDirectory = "/home/${username}";
+              };
+            })
+          ];
+        };
       };
-    };
   };
 
   inputs = {
@@ -104,7 +111,7 @@
 
     anyrun = {
       url = "github:anyrun-org/anyrun";
-      inputs.nixpkgs.follows = "nixpkgs";    
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     chaotic.url = "github:chaotic-cx/nyx/nyxpkgs-unstable";
 
@@ -115,22 +122,22 @@
 
 
     hyprland.url = "github:hyprwm/Hyprland";
-    hyprlock={
+    hyprlock = {
       url = "github:hyprwm/Hyprlock";
       inputs.nixpkgs.follows = "nixpkgs";
       #hyprlang.follows = "hyprland.hyprlang";
     };
-    hyprpaper={
+    hyprpaper = {
       url = "github:hyprwm/hyprpaper";
       inputs.nixpkgs.follows = "nixpkgs";
       #hyprlang.follows = "hyprland.hyprlang";
     };
-    hyprpicker={
+    hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs";
       #hyprlang.follows = "hyprland.hyprlang";
     };
-    hypridle={
+    hypridle = {
       url = "github:hyprwm/hypridle";
       inputs.nixpkgs.follows = "nixpkgs";
       #hyprlang.follows = "hyprland.hyprlang";
@@ -138,29 +145,26 @@
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
 
     matugen.url = "github:InioX/matugen?ref=v2.2.0";
-    ags.url = "github:Aylur/ags";
-    # astal.url = "github:Aylur/astal";
-
+    user-shell = {
+      url = "./user-shell"; # Replace with the actual path or GitHub URL of `my-shell`.
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
 
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
-    # prayers = {
-    #     url = "./prayers";
-    #     flake = true;
-    # };
     hxs = {
-        url = "/home/benjamin/repos/rrrr/new/helix";
-        flake = true;
-      };
+      url = "/home/benjamin/repos/rrrr/new/helix";
+      flake = true;
+    };
     nixvim = {
-        url = "github:nix-community/nixvim";
-        inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
     ghostty = {
-          url = "github:ghostty-org/ghostty";
+      url = "github:ghostty-org/ghostty";
     };
   };
 }

@@ -1,7 +1,7 @@
 { pkgs, inputs, ... }:
-let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --bottle Gaming -e ";in
+let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --bottle Gaming -e "; in
 {
-imports = [
+  imports = [
     ./scripts/blocks.nix
     ./scripts/nx-switch.nix
     ./scripts/vault.nix
@@ -11,46 +11,47 @@ imports = [
 
   xdg.desktopEntries = {
     "Balatro" = {
-        name = "Balatro";
-        exec = "${btl_cmd} /home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro.exe";
-        icon = "/home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro OST/Thumbnail.png";
+      name = "Balatro";
+      exec = "${btl_cmd} /home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro.exe";
+      icon = "/home/benjamin/games/Games/Balatro.v1.0.1f/Balatro.v1.0.1f/Balatro OST/Thumbnail.png";
     };
     "Satty" = {
-        name="Satty";
-        exec="satty -f %f";
-        icon="application-default-icon";
-        terminal=false;
-        type="Application";
-        mimeType=["image/png" "image/jpeg" "image/jpg" "image/gif" "image/bmp" "image/webp" "image/tiff" "image/x-icon" "image/svg+xml"];
+      name = "Satty";
+      exec = "satty -f %f";
+      icon = "application-default-icon";
+      terminal = false;
+      type = "Application";
+      mimeType = [ "image/png" "image/jpeg" "image/jpg" "image/gif" "image/bmp" "image/webp" "image/tiff" "image/x-icon" "image/svg+xml" ];
     };
     "Krunker" = {
-        name="Krunker";
-        exec="/home/benjamin/scripts/setup.AppImage";
-        icon="/home/benjamin/scripts/krunker.png";
-        terminal=false;
-        type="Application";
+      name = "Krunker";
+      exec = "/home/benjamin/scripts/setup.AppImage";
+      icon = "/home/benjamin/scripts/krunker.png";
+      terminal = false;
+      type = "Application";
     };
     "Vampire Survivors" = {
-        name="Vampire Survivors";
-        exec="${btl_cmd} /home/benjamin/games/Games/Vampire.Survivors.v1.12.107/Vampire.Survivors.v1.12.107/Vampire Survivors.exe";
-        icon="/home/benjamin/scripts/vamp.jpeg";
-        terminal=false;
+      name = "Vampire Survivors";
+      exec = "${btl_cmd} /home/benjamin/games/Games/Vampire.Survivors.v1.12.107/Vampire.Survivors.v1.12.107/Vampire Survivors.exe";
+      icon = "/home/benjamin/scripts/vamp.jpeg";
+      terminal = false;
     };
     "Hades 2" = {
-        name = "Hades 2";
-        exec = "${btl_cmd} /home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/Hades2.exe";
-        icon = "/home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/game.ico";
-        terminal = false;
+      name = "Hades 2";
+      exec = "${btl_cmd} /home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/Hades2.exe";
+      icon = "/home/benjamin/games/Games/Hades.II.v0.95285.Early.Access/Hades.II.v0.95285.Early.Access/Ship/game.ico";
+      terminal = false;
     };
   };
 
   home.packages = with pkgs;  [
 
-    inputs.ghostty.packages.x86_64-linux.default  
+    inputs.user-shell.packages.x86_64-linux.default
+    inputs.ghostty.packages.x86_64-linux.default
 
     # gui
     # obsidian
-    (mpv.override { scripts = [mpvScripts.mpris]; })
+    (mpv.override { scripts = [ mpvScripts.mpris ]; })
     libreoffice
     amberol
     pywalfox-native
@@ -73,7 +74,7 @@ imports = [
     tig
     w3m
 
-    vscode-extensions.vadimcn.vscode-lldb    
+    vscode-extensions.vadimcn.vscode-lldb
     # tools
     bat-extras.batman
     # steam-run # fhs envs
