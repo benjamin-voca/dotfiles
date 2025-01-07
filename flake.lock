@@ -2091,11 +2091,11 @@
       "locked": {
         "lastModified": 1,
         "narHash": "sha256-bVP2UzorEXROOhhSXxPSUrwvT+lXzo0hNwu/iYvY2TY=",
-        "path": "/nix/store/0pkpgblaiwc1jlblik6f1dv9f1ff80zn-source/user-shell",
+        "path": "/nix/store/657kschy4qcmp341vs4bpqcfx2229lyi-source/user-shell",
         "type": "path"
       },
       "original": {
-        "path": "/nix/store/0pkpgblaiwc1jlblik6f1dv9f1ff80zn-source/user-shell",
+        "path": "/nix/store/657kschy4qcmp341vs4bpqcfx2229lyi-source/user-shell",
         "type": "path"
       }
     },
