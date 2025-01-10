@@ -1,11 +1,10 @@
 {
   description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, user-shell, ... }: {
+  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
 
     packages.x86_64-linux = {
       hxs = hxs.packages.x86_64-linux.default;
-      user-shell = user-shell.packages.x86_64-linux.default; # Add `my-shell`.
       # default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags { inherit inputs; };
     };
     # Use the prayers flake as a package
@@ -23,7 +22,6 @@
           specialArgs = {
             inherit inputs;
             asztal = self.packages.x86_64-linux.default;
-            user-shell = self.packages.x86_64-linux.default;
 
             # prayers = prayers.packages.x86_64-linux.default;
           };
@@ -148,11 +146,6 @@
     hyprland-plugins.url = "github:hyprwm/hyprland-plugins";
 
     matugen.url = "github:InioX/matugen?ref=v2.2.0";
-    user-shell = {
-      url = "./user-shell"; # Replace with the actual path or GitHub URL of `my-shell`.
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
 
     firefox-gnome-theme = {
       url = "github:rafaelmardojai/firefox-gnome-theme";
