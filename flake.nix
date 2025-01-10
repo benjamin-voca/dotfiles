@@ -73,6 +73,9 @@
         "${username}" = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
             system = "${system}";
+            overlays = [
+              inputs.hyprpanel.overlay
+            ];
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
@@ -165,6 +168,9 @@
     };
     ghostty = {
       url = "github:ghostty-org/ghostty";
+    };
+    hyprpanel = {
+      url = "github:Jas-SinghFSU/HyprPanel";
     };
   };
 }

@@ -1,4 +1,4 @@
-{ config, inputs, ... }: {
+{pkgs, config,  ... }: {
   imports = [
     # ../home-manager/ags.nix
     ../home-manager/anyrun.nix
@@ -24,8 +24,8 @@
       GOPATH = "${config.home.homeDirectory}/.local/share/go";
       GOMODCACHE = "${config.home.homeDirectory}/.cache/go/pkg/mod";
       CARGO_TARGET_DIR = "${config.home.homeDirectory}/.cargo/cargo-target/";
-      PAGER = "/usr/bin/env bat";
-      EDITOR = "/usr/bin/env hx";
+      PAGER = "${pkgs.bat}/bin/bat";
+      EDITOR = "${pkgs.helix}/bin/hx";
       GRAVEYARD = "${config.home.homeDirectory}/.local/share/Graveyard/";
     };
 

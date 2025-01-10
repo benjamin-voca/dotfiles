@@ -32,7 +32,8 @@ in
 
     settings = {
       exec-once = [
-          "ags -b hypr"
+          # "ags -b hypr"
+          "hyprpanel"
           "hyprctl setcursor Qogir 24"
           "systemctl restart pipewire --user"
           # "firefox"

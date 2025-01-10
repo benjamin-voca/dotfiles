@@ -153,7 +153,7 @@ let
         };
       };
 
-      theme = "adwaita-dark";
+      theme = "base16_transparent";
 
       editor = {
         end-of-line-diagnostics = "hint";
