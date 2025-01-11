@@ -45,7 +45,6 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
   };
 
   home.packages = with pkgs;  [
-
     inputs.ghostty.packages.x86_64-linux.default
 
     # gui

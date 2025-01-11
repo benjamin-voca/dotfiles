@@ -1,7 +1,7 @@
 {
   description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hxs, nixpkgs, nixvim, ... }: {
+  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hyprpanel, hxs, nixpkgs, nixvim, ... }: {
 
     packages.x86_64-linux = {
       hxs = hxs.packages.x86_64-linux.default;
@@ -77,6 +77,7 @@
             config.allowUnfree = true;
           };
           extraSpecialArgs = {
+            inherit system;
             inherit inputs;
             asztal = self.packages.${system}.default;
             # prayers = prayers.packages.${system}.default;
