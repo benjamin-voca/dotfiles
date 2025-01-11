@@ -76,6 +76,10 @@
             ];
             config.allowUnfree = true;
           };
+          specialArgs = {
+            inherit system;
+            inherit inputs;
+          };
           extraSpecialArgs = {
             inherit system;
             inherit inputs;
@@ -87,6 +91,8 @@
             ./nixos/home.nix
             hyprlock.homeManagerModules.hyprlock
             anyrun.homeManagerModules.default
+
+            { nixpkgs.overlays = [ inputs.hyprpanel.overlay ]; }
             ({ pkgs, ... }: {
               nix.package = pkgs.nix;
               home = {

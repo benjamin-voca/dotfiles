@@ -1,6 +1,7 @@
 { inputs, ... }: {
   imports = [ inputs.hyprpanel.homeManagerModules.hyprpanel ];
   programs.hyprpanel = {
+    # overlay.enable = true;
 
     # Enable the module.
     # Default: false
@@ -24,7 +25,7 @@
 
     # Import a theme from './themes/*.json'.
     # Default: ""
-    theme = "mine";
+    theme = "rose_pine_moon";
 
     # Override the final config with an arbitrary set.
     # Useful for overriding colors in your selected theme.
