@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ inputs, lib, pkgs, ... }: {
 
   imports = [
     /etc/nixos/hardware-configuration.nix
@@ -16,8 +16,13 @@
   # nix
   documentation.nixos.enable = false; # .desktop
   nixpkgs.config.allowUnfree = true;
+
   nix = {
+    # make `nix run nixpkgs#nixpkgs` use the same nixpkgs as the one used by this flake.
+    registry.nixpkgs.flake = inputs.nixpkgs;
+    channel.enable = false; # remove nix-channel related tools & configs, we use flakes instead.
     settings = {
+      nix-path = lib.mkForce "nixpkgs=/etc/nix/inputs/nixpkgs";
       trusted-users = [ "benjamin" ];
       experimental-features = "nix-command flakes pipe-operators";
       auto-optimise-store = true;
@@ -199,6 +204,8 @@
     ];
   };
   environment.sessionVariables = { LIBVA_DRIVER_NAME = "iHD"; FLAKE = "/home/benjamin/repos/dotfiles"; }; # Force intel-media-driver
+
+  environment.etc."nix/inputs/nixpkgs".source = "${inputs.nixpkgs}";
 
   programs.nix-ld = {
     enable = true;
