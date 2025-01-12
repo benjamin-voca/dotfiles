@@ -7,6 +7,7 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
     ./scripts/vault.nix
     ./scripts/gamemode.nix
     ./scripts/batt.nix
+    ./scripts/chooser.nix
   ];
 
   xdg.desktopEntries = {
