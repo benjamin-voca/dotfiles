@@ -9,6 +9,7 @@ if [[ -n "$paths" ]]; then
   path="$paths"
   echo "$path"
   swww img "$path"
+  export WALL="$path"
 fi
 '';
 in
