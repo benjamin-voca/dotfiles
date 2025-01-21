@@ -12,6 +12,9 @@ in
         credential.helper = "store"; # Optional but not needed for SSH
         github.user = name;
         push.autoSetupRemote = true;
+        rerere.enable = true;
+        gpg.format = "ssh";
+        user.signingKey = "~/.ssh/id_rsa.pub";
       };
       userEmail = email;
       userName = name;

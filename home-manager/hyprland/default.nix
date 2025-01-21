@@ -172,13 +172,14 @@ in
           "Super Alt, O, ${sws},yazi"
           ", XF86Favorites,${sws},amberol"
           "Super, A, ${sws},thunderbird"
+          "Super Alt, A, ${sws}, halloy"
           "Super, X, ${sws}, pavu"
           "Super Alt, X, ${sws}, blueman"
           "Super, Z, ${sws},tasks"
           "ControlSuper, S, ${sws}, termAlt"
           "ControlSuper, A, ${sws}, thunderbirdAlt"
           "AltSuper, S, ${msws}, termAlt"
-          "AltSuper, A, ${msws}, thunderbirdAlt"
+          # "AltSuper, A, ${msws}, thunderbirdAlt"
           "Control Shift, Escape, ${sws}, taskManager"
 
 
@@ -214,6 +215,7 @@ in
           (special "monitor" "ghostty -e btop &") 
           (special "tasks" "io.github.mrvladus.List") 
           (special "thunderbird" " [fakefullscreen] org.mozilla.Thunderbird") 
+          (special "halloy" "halloy") 
           (special "pavu" " pavucontrol") 
           (special "blueman" " blueman-manager") 
           (special "taskManager" "ghostty -e btop &") 
