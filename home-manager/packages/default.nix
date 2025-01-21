@@ -56,6 +56,8 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
     amberol
     pywalfox-native
 
+    # IRC (haskell)
+    halloy
     #langs
     d-spy
     transmission_4-gtk
