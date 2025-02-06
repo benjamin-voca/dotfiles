@@ -145,11 +145,8 @@ let
     settings = {
       keys = {
         normal = {
-          A-s = ":w";
           C-q = ":bclose";
-          A-j = "goto_next_buffer";
-          A-k = "goto_previous_buffer";
-          A-d = [ "extend_to_line_bounds" "yank" "paste_after" ];
+          A-d = [ "yank" "paste_after" ];
         };
       };
 
@@ -157,6 +154,7 @@ let
 
       editor = {
         end-of-line-diagnostics = "hint";
+        soft-wrap.enable = true; 
 
         inline-diagnostics = {
           cursor-line = "error";

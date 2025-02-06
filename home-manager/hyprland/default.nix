@@ -37,7 +37,7 @@ in
           "hyprctl setcursor Qogir 24"
           "systemctl restart pipewire --user"
           # "firefox"
-          "flatpak run  io.github.zen_browser.zen"
+          "flatpak run  app.zen_browser.zen"
           "prayers -d"
           "batteryNotify &"
           "wl-paste --type text --watch cliphist store"
@@ -143,8 +143,8 @@ in
           "SUPER, Q, exec, ghostty" # xterm is a symlink, not actually xterm
           # "SUPER Alt, Q, exec,  ghostty" # xterm is a symlink, not actually xterm
           # "SUPER, W, exec, firefox"
-          "SUPER, W, exec, flatpak run io.github.zen_browser.zen"
-          "SUPER Control, W, exec, flatpak run  io.github.zen_browser.zen --private-window"
+          "SUPER, W, exec, flatpak run app.zen_browser.zen"
+          "SUPER Control, W, exec, flatpak run  app.zen_browser.zen -- --private-window"
           "SUPER, O, exec, ghostty -e yazi"
           ''ControlSuperShift,S,exec,grim -g "$(slurp -d)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"''
           "SuperShift,S,exec, fish -c 'grim -g (slurp) - | satty -f -' "
