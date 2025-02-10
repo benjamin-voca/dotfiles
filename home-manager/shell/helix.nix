@@ -19,7 +19,7 @@ let
         lua-language-server
         rust-analyzer
         bash-language-server
-        lldb
+        # lldb
         # souffle-lsp  # Add souffle-lsp for Datalog support
       ];
     } ''
@@ -45,7 +45,7 @@ let
       lua-language-server
       rust-analyzer
       bash-language-server
-      lldb
+      # lldb
       # souffle-lsp  # Add souffle-lsp here as well
     ];
 

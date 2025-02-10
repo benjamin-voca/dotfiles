@@ -31,6 +31,7 @@ in
 # plugins = with plugins; [ hyprbars borderspp ];
 
     settings = {
+      ecosystem.no_update_news=true;
       exec-once = [
           # "ags -b hypr"
           "hyprpanel"

@@ -1,6 +1,6 @@
-local start = [[
-    fish -e "/etc/profiles/per-user/benjamin/bin/zellij"
-]]
+-- local start = [[
+--     fish -e "/etc/profiles/per-user/benjamin/bin/zellij"
+-- ]]
 
 return {
     enable_wayland = false,
@@ -15,7 +15,7 @@ return {
     cell_width = 0.9,
     default_cursor_style = "BlinkingBar",
 
-    default_prog = { "bash", "-c", start },
+    -- default_prog = { "bash", "-c", start },
     window_close_confirmation = "NeverPrompt",
     hide_tab_bar_if_only_one_tab = true,
 

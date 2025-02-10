@@ -49,7 +49,7 @@ let
   in
 {
   #./nvim.nix 
-  imports = [ ./zellij ./direnv.nix ./distrobox.nix ./git.nix ./helix.nix ./yazi.nix ./starship];
+  imports = [ ./direnv.nix ./distrobox.nix ./git.nix ./helix.nix ./yazi.nix ./starship];
   #btop custom theme
   home.file.".config/btop/themes/gruber-darker.theme".source = ./gruber-darker.theme;
 
@@ -92,9 +92,6 @@ let
             sudo mkdir -p $mount_point
             sudo mount -t tmpfs -o size=$size tmpfs $mount_point
             cd $mount_point
-
-            # Start a Zellij session
-            zellij  
 
             # Delete the mount directory upon exiting
             trap 'sudo umount $mount_point; sudo rmdir $mount_point' EXIT

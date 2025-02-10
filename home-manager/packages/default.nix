@@ -66,6 +66,10 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
     fastfetch
     calcurse
     #cli
+    jujutsu
+    jjui
+    # lazyjj
+
     xlsx2csv
     just
 
@@ -76,7 +80,7 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
     tig
     w3m
 
-    vscode-extensions.vadimcn.vscode-lldb
+    # vscode-extensions.vadimcn.vscode-lldb
     # tools
     bat-extras.batman
     # steam-run # fhs envs
