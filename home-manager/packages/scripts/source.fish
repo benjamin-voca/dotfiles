@@ -63,3 +63,9 @@ function fp
     git commit -m $argv[1]
     git push
 end
+
+function new_gh_repo
+    gh repo create --public benjamin-voca/(basename (pwd))
+    git remote add origin git@github.com:benjamin-voca/(basename (pwd)).git
+    git push
+end
