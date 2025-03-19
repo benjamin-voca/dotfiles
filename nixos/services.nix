@@ -1,5 +1,7 @@
 { pkgs, ... }: {
 
+
+  # imports = [ pkgs.nix-minecraft.modules.bukkit-plugins ];
   #shutdown as normal user
   environment.etc."polkit-1/rules.d/50-shutdown.rules".text = ''
     polkit.addRule(function(action, subject) {
@@ -15,9 +17,71 @@
     polkit.enable = true;
   };
   services = {
+  /*
+
+    bukkit-plugins = {
+      enable = true;
+      plugins = {
+        geyser = {
+          package = pkgs.nix-minecraft.pkgs.geysermc;
+          settings = {
+            # Add any specific GeyserMC configurations here
+          };
+        };
+        # Add more plugins as needed
+      };
+    };
+    minecraft-server = {
+      enable = true;
+      eula = true;
+      declarative = true;
+
+      package = pkgs.velocityServers.velocity;
+
+      servers = {
+        main-server = {
+          enable = true;
+          package = pkgs.fabricServers.fabric;
+        };
+      };
+
+      restartIfChanged = true;
+      serviceConfig = {
+        Restart = "always";
+        RestartSec = "5s";
+      };
+      serverProperties = {
+        gamemode = "survival";
+        difficulty = "hard";
+        simulation-distance = 10;
+        view-distance = 10;
+        level-seed = "4";
+        level-name = "Namek";
+        use-native-transport = true;
+      };
+
+      whitelist = {
+        vimjoyer = "3f96da12-a55c-4871-8e26-09256adac319";
+      };
+
+      jvmOpts = ''
+        -Xms4G -Xmx8G
+        -XX:+UseG1GC
+        -XX:MaxGCPauseMillis=50
+        -XX:G1NewSizePercent=30
+        -XX:G1MaxNewSizePercent=40
+        -XX:G1HeapRegionSize=8M
+        -XX:InitiatingHeapOccupancyPercent=15
+        -XX:G1MixedGCLiveThresholdPercent=90
+        -XX:+UnlockExperimentalVMOptions
+      '';
+    };*/
     udev.extraRules = ''
       ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="intel_backlight", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
     '';
+    udev.packages = [
+      pkgs.android-udev-rules
+    ];
 
     openssh = {
       enable = true;

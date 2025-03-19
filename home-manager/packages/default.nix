@@ -3,6 +3,7 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
 {
   imports = [
     ./scripts/blocks.nix
+    ./scripts/swap_monitor.nix
     ./scripts/nx-switch.nix
     ./scripts/vault.nix
     ./scripts/gamemode.nix
@@ -121,5 +122,6 @@ let btl_cmd = "flatpak run --command=bottles-cli  com.usebottles.bottles  run --
     slides
     yabridge
     yabridgectl
+    android-tools
   ];
 }
