@@ -136,7 +136,7 @@ in
           ", XF86Calculator,exec, swappy -f ~/Downloads/dvorak.png"
           "CTRL SHIFT, R,  ${e} quit; ags -b hypr"
           "SUPER, R,       ${e} -t launcher"
-          "SUPER, Tab,     swap_monitors"
+          "SUPER, Tab,     exec, swap_monitors"
           ",XF86PowerOff,  ${e} -r 'powermenu.shutdown()'"
           ",XF86Launch4,   ${e} -r 'recorder.start()'"
           ",Print,         ${e} -r 'recorder.screenshot()'"

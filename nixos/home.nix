@@ -2,6 +2,7 @@
   imports = [
     # ../home-manager/ags.nix
     # ../home-manager/anyrun.nix
+    ../home-manager/walker.nix
     ../home-manager/browser.nix
     ../home-manager/hyprland
     ../home-manager/packages
