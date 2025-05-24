@@ -110,6 +110,7 @@
             "/dev/input/by-id/usb-Framework_Laptop_16_Keyboard_Module_-_ANSI_FRAKDKEN0100000000-if02-event-kbd"
           ];
           extraDefCfg = "process-unmapped-keys yes";
+          /*
           config = ''
             (defsrc
              caps a s d f j k l ;
@@ -134,6 +135,20 @@
              @caps @a  @s  @d  @f  @j  @k  @l  @;
             )
           '';
+          */
+          config = ''
+            (defsrc
+             caps a s d f j k l ;
+            )
+
+            (defvar
+             tap-time 150
+             hold-time 200
+            )
+            (defalias
+             caps (tap-hold 200 200 esc lctl)
+            )
+            '';
         };
       };
     };

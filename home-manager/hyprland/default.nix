@@ -43,6 +43,7 @@ in
           "batteryNotify &"
           "wl-paste --type text --watch cliphist store"
           "wl-paste --type image --watch cliphist store"
+          "walker --gapplication-service"
           "~/scripts/prayerRepeated.fish &"
       ];
       debug = {
@@ -150,7 +151,7 @@ in
           ''ControlSuperShift,S,exec,grim -g "$(slurp -d)" "tmp.png" && tesseract -l eng "tmp.png" - | wl-copy && rm "tmp.png"''
           "SuperShift,S,exec, fish -c 'grim -g (slurp) - | satty -f -' "
           "SuperShiftAlt,S,exec, fish -c 'grim - | satty -f -' "
-          "Super, V, exec, pkill anyrun || cliphist list | anyrun --show-results-immediately true --plugins ${inputs.anyrun.packages.${pkgs.system}.stdin}/lib/libstdin.so | cliphist decode | wl-copy"
+          "Super, V, exec,  walker -m clipboard"
 # youtube
           ", XF86Launch1,  exec, ${yt}"
           "SUPER, Q, exec, systemctl shutdown now"          
@@ -164,7 +165,7 @@ in
           "SUPER, P, togglesplit"
           "SUPER, N, exec, neovide"
           "SUPER Alt, N, exec, ghostty -e hx "
-          "Super, Super_L, exec, pkill anyrun || anyrun"
+          "Super, Super_L, exec, walker"
           "SUPER, K, exec, ~/scripts/prayers.fish"
           "SUPER, E, exec, nautilus"
           "Super, L, exec, hyprlock"

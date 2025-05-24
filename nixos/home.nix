@@ -9,7 +9,8 @@
     ../home-manager/shell
     ../home-manager/theme.nix
     ../home-manager/wezterm.nix
-    ../home-manager/hyprpanel.nix
+    ../home-manager/waybar.nix
+    # ../home-manager/hyprpanel.nix
     # ../home-manager/ghostty.nix
   ];
 
@@ -59,7 +60,6 @@
       "file://${home}/Videos"
       "file://${home}/Downloads"
       "file://${home}/Desktop"
-      "file://${home}/Work"
       "file://${home}/Documents/shkolle/programim School"
       "file://${home}/Projects"
       "file://${home}/.config Config"

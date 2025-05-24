@@ -86,7 +86,7 @@
             asztal = self.packages.${system}.default;
             # prayers = prayers.packages.${system}.default;
           };
-          imports = [ nixvim.HomeManagerModules.nixvim ];
+          imports = [ nixvim.HomeManagerModules.nixvim  ];
           modules = [
             ./nixos/home.nix
             hyprlock.homeManagerModules.hyprlock
@@ -172,5 +172,6 @@
     hyprpanel = {
       url = "github:Jas-SinghFSU/HyprPanel";
     };
+    walker.url = "github:abenz1267/walker";
   };
 }

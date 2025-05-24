@@ -194,6 +194,7 @@ let
         # CARGO_TARGET_DIR="~/.cargo/cargo-target/";
         # PAGER = "bat";
       # };
+      /*
       environmentVariables = {
         # PROMPT_COMMAND = "{ || create_left_prompt }";
         PROMPT_COMMAND_RIGHT = ''""'';
@@ -201,7 +202,7 @@ let
         PROMPT_INDICATOR_VI_INSERT = ''""'';
         PROMPT_INDICATOR_VI_NORMAL = ''""'';
         PROMPT_MULTILINE_INDICATOR = ''""'';
-      };
+      };*/
       extraConfig = let
         conf = builtins.toJSON {
           show_banner = false;

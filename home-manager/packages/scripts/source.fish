@@ -66,6 +66,7 @@ end
 
 function new_gh_repo
     gh repo create --public benjamin-voca/(basename (pwd))
+    git init
     git remote add origin git@github.com:benjamin-voca/(basename (pwd)).git
     git push
 end
