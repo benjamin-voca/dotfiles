@@ -36,6 +36,7 @@ in
           # "ags -b hypr"
           # "hyprpanel"
           "waybar"
+          "swww init"
           "hyprctl setcursor Qogir 24"
           "systemctl restart pipewire --user"
           # "firefox"
