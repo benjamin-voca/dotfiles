@@ -66,6 +66,7 @@
     nix-output-monitor
     nvd
     dust
+    nu_scripts
   ];
 
   # services

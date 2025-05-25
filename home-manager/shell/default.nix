@@ -238,11 +238,6 @@ let
             };
           })];
         };
-        direnvHook = ''
-          if ($env.PWD | path join ".envrc" | path exists) {
-            direnv export json | from json | load-env
-          }
-        '';
         completion = name: ''
           source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
         '';
@@ -255,8 +250,10 @@ let
         }
         $env.config = ${conf};
         ${completions ["cargo" "git" "nix" "npm"]}
-        ${direnvHook}
-      '';
+        $env.config.hooks.pre_prompt = (
+            $env.config.hooks.pre_prompt | append (source ${pkgs.nu_scripts}/share/nu_scripts/nu-hooks/nu-hooks/direnv/config.nu)
+        )
+        '';
     };
   };
 }
