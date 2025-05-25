@@ -138,7 +138,7 @@
           */
           config = ''
             (defsrc
-             caps a s d f j k l ;
+             caps
             )
 
             (defvar
@@ -147,6 +147,9 @@
             )
             (defalias
              caps (tap-hold 200 200 esc lctl)
+            )
+            (deflayer base
+             @caps
             )
             '';
         };

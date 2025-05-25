@@ -11,7 +11,7 @@
   ];
   #default shell
   programs.fish.enable = true;
-  users.users.benjamin.shell = pkgs.fish;
+  users.users.benjamin.shell = pkgs.nushell;
 
   # nix
   documentation.nixos.enable = false; # .desktop

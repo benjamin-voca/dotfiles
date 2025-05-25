@@ -34,7 +34,8 @@ in
       ecosystem.no_update_news=true;
       exec-once = [
           # "ags -b hypr"
-          "hyprpanel"
+          # "hyprpanel"
+          "waybar"
           "hyprctl setcursor Qogir 24"
           "systemctl restart pipewire --user"
           # "firefox"
@@ -259,12 +260,12 @@ in
 
         blur = {
           enabled = true;
-          size = 7;
-          passes = 4;
+          size = 4;
+          passes = 2;
           new_optimizations = "on";
           noise = 0;
-          contrast = 0.9;
-          brightness = 0.8;
+          contrast = 1;
+          brightness = 1;
           popups = true;
         };
       };
@@ -296,6 +297,8 @@ in
 
           "blur, bar"
           "ignorealpha 0.10, bar"
+          "blur, waybar"
+          "ignorealpha 0.10, waybar"
           "blur, corner.*"
           "ignorealpha 0.10, corner.*"
           "blur, dock"

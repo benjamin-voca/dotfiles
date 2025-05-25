@@ -40,7 +40,7 @@ let
     "lsPkgs" = "nix-store --query --requisites /run/current-system | cut -d- -f2- | sort | uniq";
     "orari" = "/home/benjamin/scripts/tabela.py";
     "dwSite" = "wget2 --max-threads=16 --mirror --convert-links --adjust-extension --page-requisites --no-parent --domains= ";
-    "hxs" = "nix run ~/repos/rrrr/new/helix";
+    # "hxs" = "nix run ~/repos/rrrr/new/helix";
     "rg" = "rga";
     "j" = "just";
     "lg" = "lazygit";
@@ -180,9 +180,9 @@ let
     nushell = {
       inherit shellAliases;
       enable = true;
-      # environmentVariables = {
-        # PROMPT_INDICATOR_VI_INSERT = "\"  \"";
-        # PROMPT_INDICATOR_VI_NORMAL = "\"∙ \"";
+      environmentVariables = {
+        PROMPT_INDICATOR_VI_INSERT = "";
+        PROMPT_INDICATOR_VI_NORMAL = "";
         # PROMPT_COMMAND = ''""'';
         # PROMPT_COMMAND_RIGHT = ''""'';
         # NIXPKGS_ALLOW_UNFREE = "1";
@@ -193,7 +193,7 @@ let
         #VISUAL = config.home.sessionVariables.VISUAL;
         # CARGO_TARGET_DIR="~/.cargo/cargo-target/";
         # PAGER = "bat";
-      # };
+      };
       /*
       environmentVariables = {
         # PROMPT_COMMAND = "{ || create_left_prompt }";
@@ -238,6 +238,11 @@ let
             };
           })];
         };
+        direnvHook = ''
+          if ($env.PWD | path join ".envrc" | path exists) {
+            direnv export json | from json | load-env
+          }
+        '';
         completion = name: ''
           source ${pkgs.nu_scripts}/share/nu_scripts/custom-completions/${name}/${name}-completions.nu
         '';
@@ -250,6 +255,7 @@ let
         }
         $env.config = ${conf};
         ${completions ["cargo" "git" "nix" "npm"]}
+        ${direnvHook}
       '';
     };
   };

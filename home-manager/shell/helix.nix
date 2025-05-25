@@ -1,31 +1,31 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 let
   # Define a wrapped version of Helix with the necessary language servers and tools.
-  hxs = pkgs.runCommand "hxs"
-    {
-      buildInputs = with pkgs; [
-        inputs.hxs.packages.x86_64-linux.default # Original `hxs` package
-        # vscode-langservers-extracted
-        superhtml
-        gopls
-        gotools
-        typescript
-        typescript-language-server
-        marksman
-        markdown-oxide
-        nil
-        nixpkgs-fmt
-        clang-tools
-        lua-language-server
-        rust-analyzer
-        bash-language-server
-        # lldb
-        # souffle-lsp  # Add souffle-lsp for Datalog support
-      ];
-    } ''
-    mkdir -p $out/bin
-    ln -s ${inputs.hxs.packages.x86_64-linux.default}/bin/hx $out/bin/hxs
-  '';
+  # hxs = pkgs.runCommand "hxs"
+  #   {
+  #     buildInputs = with pkgs; [
+  #       inputs.hxs.packages.x86_64-linux.default # Original `hxs` package
+  #       # vscode-langservers-extracted
+  #       superhtml
+  #       gopls
+  #       gotools
+  #       typescript
+  #       typescript-language-server
+  #       marksman
+  #       markdown-oxide
+  #       nil
+  #       nixpkgs-fmt
+  #       clang-tools
+  #       lua-language-server
+  #       rust-analyzer
+  #       bash-language-server
+  #       # lldb
+  #       # souffle-lsp  # Add souffle-lsp for Datalog support
+  #     ];
+  #   } ''
+  #   mkdir -p $out/bin
+  #   ln -s ${inputs.hxs.packages.x86_64-linux.default}/bin/hx $out/bin/hxs
+  # '';
 
   sharedHelixConfig = {
     enable = true;
@@ -204,5 +204,5 @@ in
 {
   programs.helix = sharedHelixConfig;
 
-  home.packages = [ hxs ];
+  # home.packages = [ hxs ];
 }

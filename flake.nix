@@ -1,10 +1,10 @@
 {
   description = "Configurations of Benjamin";
 
-  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hyprpanel, hxs, nixpkgs, nixvim, ... }: {
+  outputs = inputs@{ self, anyrun, chaotic, ghostty, home-manager, hyprlock, hyprpanel, nixpkgs, nixvim, ... }: {
 
     packages.x86_64-linux = {
-      hxs = hxs.packages.x86_64-linux.default;
+      # hxs = hxs.packages.x86_64-linux.default;
       # default = nixpkgs.legacyPackages.x86_64-linux.callPackage ./ags { inherit inputs; };
     };
     # Use the prayers flake as a package
@@ -158,10 +158,10 @@
       url = "github:rafaelmardojai/firefox-gnome-theme";
       flake = false;
     };
-    hxs = {
-      url = "/home/benjamin/repos/rrrr/new/helix";
-      flake = true;
-    };
+    # hxs = {
+    #   url = "/home/benjamin/repos/rrrr/new/helix";
+    #   flake = true;
+    # };
     nixvim = {
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";

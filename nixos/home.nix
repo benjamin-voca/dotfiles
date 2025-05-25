@@ -41,10 +41,10 @@
   xdg = {
     mimeApps = {
       defaultApplications = {
-        "x-scheme-handler/http" = "app.zen_browser.zen";
-        "x-scheme-handler/https" = "app.zen_browser.zen";
-        "x-www-browser"="app.zen_browser.zen";
-        "application/pdf" ="app.zen_browser.zen";
+        "x-scheme-handler/http" = "app.zen_browser.zen.desktop";
+        "x-scheme-handler/https" = "app.zen_browser.zen.desktop";
+        "x-www-browser"="app.zen_browser.zen.desktop";
+        "application/pdf" ="app.zen_browser.zen.desktop";
       };
     };
   };
