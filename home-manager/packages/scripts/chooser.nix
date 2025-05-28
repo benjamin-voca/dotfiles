@@ -1,18 +1,35 @@
 { pkgs, ... }:
 let
+  transitionList = "left right top bottom wipe wave grow center any outer";
+  wallpaperDir = "~/Pictures/Wallpapers";
+  chooserFile = "/dev/stdout";
   wppick = pkgs.writeShellScriptBin "wppick" ''
-  paths=$(yazi --chooser-file=/dev/stdout ~/Pictures/Wallpapers | while read -r; do printf "%q " "$REPLY"; done)
+    #!/usr/bin/env bash
 
-# Ensure there's no trailing space or newline in the path
-paths=$(echo "$paths" | xargs)
+    # Configurable variables
+    WALLPAPER_DIR=${wallpaperDir}
+    TRANSITIONS="${transitionList}"
+    CHOOSER_FILE=${chooserFile}
 
-if [[ -n "$paths" ]]; then
-  path="$paths"
-  echo "$path"
-  swww img "$path"
-  export WALL="$path"
-fi
-'';
+    # Pick a wallpaper using yazi chooser
+    raw_paths=$(yazi --chooser-file="$CHOOSER_FILE" "$WALLPAPER_DIR" | while read -r; do printf "%q " "$REPLY"; done)
+    paths=$(echo "$raw_paths" | xargs) # Remove trailing space/newlines
+
+    if [[ -n "$paths" ]]; then
+      path="$paths"
+      echo "Selected wallpaper: $path"
+
+      # Choose a random transition
+      transition=$(echo "$TRANSITIONS" | tr ' ' '\n' | shuf -n 1)
+      echo "Using transition: $transition"
+
+      # Apply the wallpaper
+      swww img -t "$transition" "$path"
+
+      # Export path
+      export WALL="$path"
+    fi
+  '';
 in
 {
   home.packages = [ wppick ];

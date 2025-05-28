@@ -11,7 +11,7 @@
   ];
   #default shell
   programs.fish.enable = true;
-  users.users.benjamin.shell = pkgs.nushell;
+  users.users.benjamin.shell = pkgs.fish;
 
   # nix
   documentation.nixos.enable = false; # .desktop
@@ -43,8 +43,8 @@
   programs.virt-manager.enable = true;
   virtualisation = {
     podman.enable = false;
-    #docker.enable = true;
-    #libvirtd.enable = true;
+    docker.enable = true;
+    libvirtd.enable = true;
   };
 
   # dconf

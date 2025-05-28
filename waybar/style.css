@@ -20,7 +20,7 @@ window#waybar.hidden {
 	padding-right: 10px;
 	border-radius: 10px;
 	transition: none;
-        color: transparent;
+  color: transparent;
 	background: transparent;
 }
 #workspaces {
@@ -50,8 +50,8 @@ window#waybar.hidden {
 
 #workspaces button.active {
 	color: #ABE9B3;
-        border-top: 2px solid #ABE9B3;
-        border-bottom: 2px solid #ABE9B3;
+  border-top: 2px solid #ABE9B3;
+  border-bottom: 2px solid #ABE9B3;
 }
 
 #workspaces button:hover {

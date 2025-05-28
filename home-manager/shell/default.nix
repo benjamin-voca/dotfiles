@@ -77,6 +77,17 @@ let
 
         fish_vi_key_bindings
 
+        # function git
+        #     if test (basename (pwd)) = 'UEB25_Gr1' -a "$argv[1]" = "status"
+        #         echo "On branch master"
+        #         echo "Your branch is up to date with 'origin/master'."
+        #         echo
+        #         echo "nothing to commit, working tree clean"
+        #     else
+        #         command git $argv
+        #     end
+        # end
+
         function burnSubs
             set input_video $argv[1]
             set subtitle_file $argv[2]
