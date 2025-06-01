@@ -147,6 +147,9 @@ let
         normal = {
           C-q = ":bclose";
           A-d = [ "yank" "paste_after" ];
+          space = {
+           t = ":toggle-option lsp.display-inlay-hints"; 
+          };
         };
       };
 
@@ -196,7 +199,7 @@ let
           render = true;
           character = "┊";
         };
-        auto-pairs = { "(" = ")"; "{" = "}"; "[" = "]"; };
+        auto-pairs = { "(" = ")"; "{" = "}"; "[" = "]"; "\"" = "\"";};
       };
     };
   };
